@@ -15,11 +15,15 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             //Primary Key
-            $table->id('upid');
-            //Content of comment
-            $table->string('content');
-            $table->integer('upvotes');
-            $table->integer('downvotes');
+            $table->id();
+
+            //Foreign Key
+            $table->foreignId('user_id')->references('id')->on('users')
+                ->cascadeOnDelete()->cascadeOnUpdate();
+
+            //Content of post
+            $table->string("content");
+
             //Created and Updated timestamp attributes
             $table->timestamps();
         });

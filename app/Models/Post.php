@@ -10,20 +10,14 @@ class Post extends Model
     use HasFactory;
 
     /**
-     * The Post's ID.
-     */
-    protected $upid = 'upid';
-
-    /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $fillable = [
-        'uuid',
+        'user_id',
+        'post_id',
         'content',
-        'upvotes',
-        'downvotes',
     ];
 
     /**
@@ -31,15 +25,18 @@ class Post extends Model
      * Post belongs to a user.
     */
     public function user() {
-        //uuid = Unique User ID
-        return $this->belongsTo("App\Models\User", "uuid");
+        return $this->belongsTo(User::class);
     }
-    
-    /**
-     * Child Relationship: 
-     * Post can have many comments.
-    */
+
     public function comments() {
-        return $this->hasMany("App\Models\Comment", "upid");
+        return $this->morphMany(Comment::class, "commentable");
+    }
+
+    public function likes() {
+        $table->morphs('likeable');
+    }
+
+    public function flairs() {
+        $table->morphs('flairable');
     }
 }
