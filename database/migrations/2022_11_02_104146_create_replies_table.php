@@ -17,15 +17,14 @@ return new class extends Migration
             //Primary Key
             $table->id('urid');
             //Foreign Key
-            $table->foreign('uuid')->references('uuid')->on('users')->cascadeOnDelete();
-            $table->foreign('upid')->references('upid')->on('posts')->cascadeOnDelete();
+            $table->foreignId('uuid')->references('uuid')->on('users')->cascadeOnDelete();
+            $table->foreignId('upid')->references('upid')->on('posts')->cascadeOnDelete();
             //Content of comment
             $table->string('content');
             $table->integer('upvotes');
             $table->integer('downvotes');
             //Created and Updated timestamp attributes
-            $table->timestamps('created_at');
-            $table->timestamps('updated_at');
+            $table->timestamps();
         });
     }
 
