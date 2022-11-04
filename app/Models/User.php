@@ -12,18 +12,13 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
     
     /**
-     * The Users's ID.
-     */
-    protected $uuid = 'uuid';
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'fname',
-        'lname',
+        'f_name',
+        'l_name',
         'dob',
         'mobile',
         'email',
@@ -49,19 +44,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    public function userProfile() {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function userRole() {
+        return $this->belongsToMany(Role::class);
+    }
+
     /**
      * Child Relationship: 
      * User can have many posts.
      * User can have many comments.
      * User can have many replies.
     */
-    public function userPosts() {
-        return $this->hasMany("App\Models\Post", "uuid");
+    public function posts() {
+        return $this->hasMany(Post::class);
     }
-    public function userComments() {
-        return $this->hasMany("App\Models\Comment", "uuid");
+    public function comments() {
+        return $this->hasMany(Comment::class);
     }
-    public function userReplies() {
-        return $this->hasMany("App\Models\Reply", "uuid");
+    public function likes() {
+        return $this->hasMany(Like::class);
     }
 };

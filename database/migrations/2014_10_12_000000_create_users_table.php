@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration 
+class CreateUsersTable extends Migration 
 {
     
     /**
@@ -15,10 +15,10 @@ return new class extends Migration
     public function up() {
         Schema::create('users', function (Blueprint $table) {
             //unique user id
-            $table->id('uuid');
+            $table->id();
             //firstname / lastname
-            $table->string('fname');
-            $table->string('lname');
+            $table->string('f_name');
+            $table->string('l_name');
             //unique email
             $table->string('email')->unique();
             //string to support +44 which is unique
