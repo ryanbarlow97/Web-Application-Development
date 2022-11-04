@@ -31,8 +31,8 @@ class Comment extends Model
 
     /**
      * Parent Relationship:
-     * Comment belongs to user.
-     * Comment belongs to post.
+     * Comment belongs to a user.
+     * Comment belongs to a post.
     */
     public function user() {
         //uuid = Unique User ID

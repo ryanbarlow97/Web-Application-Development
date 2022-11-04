@@ -30,7 +30,7 @@ class Post extends Model
 
     /**
      * Parent Relationship: 
-     * Post belongs to user.
+     * Post belongs to a user.
     */
     public function user() {
         //uuid = Unique User ID
