@@ -14,11 +14,14 @@ return new class extends Migration
      */
     public function up() {
         Schema::create('users', function (Blueprint $table) {
+            //unique user id
             $table->id('uuid');
+            //firstname / lastname
             $table->string('fname');
             $table->string('lname');
+            //unique email
             $table->string('email')->unique();
-            //string to support +44
+            //string to support +44 which is unique
             $table->string('mobile')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
