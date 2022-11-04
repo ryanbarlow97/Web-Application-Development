@@ -10,43 +10,34 @@ class Comment extends Model
     use HasFactory;
 
     /**
-     * The Comments's Unique ID.
-     */
-    protected $ucid = 'ucid';
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'ucid',
-        'uuid',
+        'user_id',
+        'comment_id',
         'content',
-        'upvotes',
-        'downvotes',
     ];
 
     /**
      * Parent Relationship:
-     * Comment belongs to a user.
-     * Comment belongs to a post.
     */
     public function user() {
-        //uuid = Unique User ID
-        return $this->belongsTo("App\Models\User", "uuid");
-    }
-    public function post() {
-        //upid = Unique Post ID
-        return $this->belongsTo("App\Models\Post", "upid");
+        return $this->belongsTo(User::class);
     }
 
-    /**
-     * Child Relationship: 
-     * Comment has many replies.
-     */
-    public function replies() {
-        //uuid = Unique User ID
-        return $this->hasMany("App\Models\Reply", "uuid");
+
+
+    public function commentable() {
+        return $this->morphTo();
+    }
+
+    public function comments() {
+        return $this->morphMany(Comment::class, "commentable");
+    }
+
+    public function likes() {
+        return $this->morphMany(Like::class,"likeable");
     }
 }
