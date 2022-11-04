@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('content');
             $table->integer('upvotes');
             $table->integer('downvotes');
-            $table->timestamps();
-
+            $table->timestamps('created_at');
+            $table->timestamps('updated_at');
         });
     }
 
