@@ -20,8 +20,8 @@ class Comment extends Model
      * @var array
      */
     protected $fillable = [
+        'ucid',
         'uuid',
-        'upid',
         'content',
         'upvotes',
         'downvotes',
