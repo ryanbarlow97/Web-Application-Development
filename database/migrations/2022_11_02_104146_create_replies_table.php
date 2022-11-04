@@ -17,8 +17,8 @@ return new class extends Migration
             //Primary Key
             $table->id('urid');
             //Foreign Key
-            $table->foreignId('uuid')->references('uuid')->on('users')->cascadeOnDelete();
-            $table->foreignId('upid')->references('upid')->on('posts')->cascadeOnDelete();
+            $table->foreignId('uuid')->references('uuid')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('upid')->references('upid')->on('posts')->cascadeOnDelete()->cascadeOnUpdate();
             //Content of comment
             $table->string('content');
             $table->integer('upvotes');
