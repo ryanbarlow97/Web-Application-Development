@@ -15,7 +15,8 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'post_id', 'content', 'likes', 'flair',
+        'post_id', 'user_id', 'module_id', 'content', 
+        'likes', 'flair', 'comment_num', 
     ];
 
     /**
@@ -23,6 +24,12 @@ class Post extends Model
     */
     public function owner() {
         return $this->belongsTo(User::class);
+    }
+    /**
+     * Post belongs to a module.
+    */
+    public function module() {
+        return $this->belongsTo(Module::class, 'module_id');
     }
 
     /**
