@@ -17,12 +17,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'f_name',
-        'l_name',
-        'dob',
-        'mobile',
-        'email',
-        'password',
+        'first_name', 'last_name', 'date_of_birth', 'mobile', 
+        'email', 'password', 'profile_picture', 
     ];
 
     /**
@@ -31,8 +27,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'email', 'password', 'remember_token',
     ];
 
     /**
@@ -44,20 +39,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function userProfile() {
-        return $this->hasOne(Profile::class);
-    }
-
+    /**
+    * User can belong to many roles.
+    */
     public function userRole() {
         return $this->belongsToMany(Role::class);
     }
 
     /**
-     * Child Relationship: 
      * User can have many posts.
      * User can have many comments.
-     * User can have many replies.
+     * User can have many likes.
     */
     public function posts() {
         return $this->hasMany(Post::class);
@@ -65,7 +57,15 @@ class User extends Authenticatable
     public function comments() {
         return $this->hasMany(Comment::class);
     }
-    public function likes() {
-        return $this->hasMany(Like::class);
+
+    /**
+     * User can like many posts.
+     * User can like many comments.
+    */
+    public function likedPost() {
+        return $this->belongsToMany(Post::class, 'comment_likes');
+    }
+    public function likedComments() {
+        return $this->belongsToMany(Comment::class, 'post_likes');
     }
 };

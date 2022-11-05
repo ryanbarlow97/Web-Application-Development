@@ -15,29 +15,27 @@ class Comment extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',
-        'comment_id',
-        'content',
+        'user_id', 'comment_id', 'post_id', 'content', 'likes',
     ];
 
     /**
-     * Parent Relationship:
+    * A comment belongs to an owner.
     */
-    public function user() {
-        return $this->belongsTo(User::class);
+    public function owner() {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-
-
-    public function commentable() {
-        return $this->morphTo();
+    /**
+    * A comment belongs to a post.
+    */
+    public function post() {
+        return $this->belongsTo(Post::class, 'post_id');
     }
 
-    public function comments() {
-        return $this->morphMany(Comment::class, "commentable");
-    }
-
-    public function likes() {
-        return $this->morphMany(Like::class,"likeable");
+    /**
+    * A comment has other comments.
+    */
+    public function commentChildren() {
+        return $this->hasMany(self::class, "comment_id");
     }
 }

@@ -22,10 +22,12 @@ class CreateCommentsTable extends Migration
             $table->foreignId('post_id')->references('id')->on('posts')
                 ->cascadeOnDelete()->cascadeOnUpdate();
 
-            $table->morphs('commentable');
-            
+            //count of (up/down)votes
+            $table->integer('upvotes')->default(1);
+            $table->integer('downvotes')->default(0);
+
             //Content of comment
-            $table->string('content');
+            $table->text('content');
             //Created and Updated timestamp attributes
             $table->timestamps();
         });

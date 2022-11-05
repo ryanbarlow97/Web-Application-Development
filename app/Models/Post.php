@@ -15,28 +15,20 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',
-        'post_id',
-        'content',
+        'user_id', 'post_id', 'content', 'likes', 'flair',
     ];
 
     /**
-     * Parent Relationship: 
      * Post belongs to a user.
     */
-    public function user() {
+    public function owner() {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Post can have many comments.
+    */
     public function comments() {
-        return $this->morphMany(Comment::class, "commentable");
-    }
-
-    public function likes() {
-        $table->morphs('likeable');
-    }
-
-    public function flairs() {
-        $table->morphs('flairable');
+        return $this->hasMany(Comment::class);
     }
 }
