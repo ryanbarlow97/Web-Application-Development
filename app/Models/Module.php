@@ -14,24 +14,23 @@ class Module extends Model
     ];
 
     /**
-    * A module area can have many posts.
+     * A module area can have many posts.
     */
     public function posts() {
         return $this->hasMany(Post::class);
     }
 
     /**
-    * A module area can have many comments.
+     * A module area can have many comments.
     */
     public function comments() {
         return $this->hasMany(Commment::class);
     }
 
     /**
-    * A module area can have many comments.
+     * A module area can have many users (staff/student).
     */
-    public function enrolledStudents() {
-        return $this->belongsToMany(User::class, 'enrolled');
+    public function users() {
+        return $this->belongsToMany(User::class, 'users');
     }
-
 }
