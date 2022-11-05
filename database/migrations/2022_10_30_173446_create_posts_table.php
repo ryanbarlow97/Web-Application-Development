@@ -15,7 +15,7 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             //Primary Key
-            $table->id();
+            $table->id('post_id');
 
             //Foreign Key
             $table->foreignId('user_id')->references('id')->on('users')
@@ -24,9 +24,9 @@ class CreatePostsTable extends Migration
             //Content of post
             $table->string("content");
 
-            //Creates {column}_id and {column}_type 
-            $table->morphs('commentable');
-            $table->morphs('likeable');
+            
+            $table->integer('likes')->default(1);
+            $table->integer('comments_number')->default(0);
 
             //Created and Updated timestamp attributes
             $table->timestamps();
