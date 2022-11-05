@@ -30,7 +30,7 @@ class UserFactory extends Factory {
             'email_verified_at' => now(),
             'mobile' => $this->faker->phoneNumber(),
             'password' => hash('sha512', $this->faker->name()),
-            'remember_token' => Str::random(10),
+            'remember_token' => Str::random(12),
             'created_at' => $created,
             'updated_at' => $this->faker->dateTimeBetween($created, '2022-11-05')
                 ->format('Y/m/d'),
