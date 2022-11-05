@@ -40,16 +40,15 @@ class User extends Authenticatable
     ];
 
     /**
-    * User can belong to many roles.
+    * User can belong to multiple modules.
     */
-    public function userRole() {
-        return $this->belongsToMany(Role::class);
+    public function modules() {
+        return $this->belongsToMany(Modules::class, 'modules');
     }
 
     /**
      * User can have many posts.
      * User can have many comments.
-     * User can have many likes.
     */
     public function posts() {
         return $this->hasMany(Post::class);
