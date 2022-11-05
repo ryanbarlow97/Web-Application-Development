@@ -26,14 +26,14 @@ class Comment extends Model
     }
 
     /**
-    * A comment belongs to a post.
+     * A comment belongs to a post.
     */
     public function post() {
         return $this->belongsTo(Post::class, 'post_id');
     }
 
     /**
-    * A comment has other comments.
+     * A comment has other comments.
     */
     public function commentChildren() {
         return $this->hasMany(self::class, "comment_id");
