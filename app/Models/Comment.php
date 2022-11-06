@@ -29,4 +29,10 @@ class Comment extends Model {
     public function post() {
         return $this->belongsTo(Post::class, 'post_id');
     }
+    /**
+     * Get all of the post's likes.
+    */
+    public function likes() {
+        return $this->morphToMany(User::class, 'likeable');
+    }
 }
