@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,9 +16,13 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         //Call module seeder
         $this->call(ModuleSeeder::class);
+        //Call enrollment seeder
+        $this->call(EnrollmentSeeder::class);
         //Call post seeder
         $this->call(PostSeeder::class);
         //Call comment seeder
         $this->call(CommentSeeder::class);
+        //Call like seeder
+        $this->call(LikeablesSeeder::class);
     }
 }
