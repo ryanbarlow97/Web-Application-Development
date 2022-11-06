@@ -9,6 +9,9 @@ class Module extends Model
 {
     use HasFactory;
 
+    //don't need timestamps
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      * @var array
