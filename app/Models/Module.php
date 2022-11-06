@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Module extends Model
 {
     use HasFactory;
-    
+
     /**
      * The attributes that are mass assignable.
      * @var array
@@ -22,13 +22,6 @@ class Module extends Model
     */
     public function posts() {
         return $this->hasMany(Post::class);
-    }
-
-    /**
-     * A module area can have many comments.
-    */
-    public function comments() {
-        return $this->hasMany(Commment::class);
     }
 
     /**
