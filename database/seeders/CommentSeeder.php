@@ -6,8 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Comment;
 
-class CommentSeeder extends Seeder
-{
+class CommentSeeder extends Seeder {
     /**
      * Run the database seeds.
      *

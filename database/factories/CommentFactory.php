@@ -24,9 +24,6 @@ class CommentFactory extends Factory
             'user_id' => $this->faker->numberBetween(1,50),
             'post_id' => $this->faker->numberBetween(1,50),
             'content' => $this->faker->text(),
-
-
-            //'content' => $this->faker->text(),
             'created_at' => $created,
             'updated_at' => $this->faker->dateTimeBetween($created, '2022-11-05')
                 ->format('Y/m/d'),

@@ -24,7 +24,6 @@ class ModuleFactory extends Factory
 
         return [
             //create fake module
-
             //fake module name/number e.g. AB123
             'name' => substr(str_shuffle($permitted_chars), 0 , 2) . rand(100,399),
             'description' => $this->faker->text(),

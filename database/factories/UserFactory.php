@@ -15,8 +15,7 @@ class UserFactory extends Factory {
      *
      * @return array<string, mixed>
      */
-    public function definition()
-    {
+    public function definition() {
         $created = $this->faker->dateTimeBetween('2010-01-01', '2022-11-05')
         ->format('Y/m/d');
 

@@ -11,8 +11,7 @@ class CreateCommentsTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('comments', function (Blueprint $table) {
             //Primary Key
             $table->id();
@@ -34,8 +33,7 @@ class CreateCommentsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('comments');
     }
 };

@@ -6,8 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Enrollment;
 
-class EnrollmentSeeder extends Seeder
-{
+class EnrollmentSeeder extends Seeder {
     /**
      * Run the database seeds.
      * @return void
