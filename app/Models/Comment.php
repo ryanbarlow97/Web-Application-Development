@@ -13,7 +13,7 @@ class Comment extends Model {
      * @var array
      */
     protected $fillable = [
-        'user_id', 'comment_id', 'post_id', 'content', 'likes',
+        'user_id', 'post_id', 'content',
     ];
 
     /**
@@ -28,12 +28,5 @@ class Comment extends Model {
     */
     public function post() {
         return $this->belongsTo(Post::class, 'post_id');
-    }
-
-    /**
-     * A comment has other comments.
-    */
-    public function commentChildren() {
-        return $this->hasMany(self::class, "comment_id");
     }
 }
