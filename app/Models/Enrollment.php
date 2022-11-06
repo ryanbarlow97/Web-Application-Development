@@ -9,6 +9,9 @@ class Enrollment extends Model
 {
     use HasFactory;
 
+    //don't need timestamps
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      * @var array
@@ -17,8 +20,6 @@ class Enrollment extends Model
         'user_id', 'module_id',
     ];
 
-    public $timestamps = false;
-
-
+    
 
 }
