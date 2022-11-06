@@ -58,10 +58,10 @@ class User extends Authenticatable
      * User can like many posts.
      * User can like many comments.
     */
-    public function likedPost() {
-        return $this->belongsToMany(Post::class, 'post_likes');
+    public function likedPosts() {
+        return $this->morphedByMany(Post::class, 'likeable');
     }
     public function likedComments() {
-        return $this->belongsToMany(Comment::class, 'comment_likes');
+        return $this->morphedByMany(Comment::class, 'likeable');
     }
 };
