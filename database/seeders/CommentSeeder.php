@@ -13,8 +13,7 @@ class CommentSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         Comment::factory(150)->create();
     }
 }
