@@ -15,10 +15,21 @@ class CommentFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
-    {
+    public function definition() {
+        $created = $this->faker->dateTimeBetween('2010-01-01', '2022-11-05')
+        ->format('Y/m/d');
+
         return [
-            //
-        ];
+            //create fake posts inside module area
+            'user_id' => $this->faker->numberBetween(1,50),
+            'post_id' => $this->faker->numberBetween(1,50),
+            'content' => $this->faker->text(),
+
+
+            //'content' => $this->faker->text(),
+            'created_at' => $created,
+            'updated_at' => $this->faker->dateTimeBetween($created, '2022-11-05')
+                ->format('Y/m/d'),
+            ];
     }
 }
