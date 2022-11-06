@@ -20,6 +20,9 @@ class CreateEnrollmentsTable extends Migration
                 ->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('module_id')->references('id')->on('modules')
             ->cascadeOnDelete()->cascadeOnUpdate();  
+
+            //make sure the user only enrolls to the same module once
+            $table->unique(['user_id', 'module_id']);
         });
     }
 
