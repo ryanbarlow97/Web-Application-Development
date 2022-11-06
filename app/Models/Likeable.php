@@ -18,7 +18,14 @@ class Likeable extends Model
         'likeable_id',
         'likeable_type',
     ];
-
+    
+    //Find User who liked something
+    public function findUser() {
+        return $this->belongsTo(User::class);
+    }
+    /**
+     * The attributes that are mass assignable.
+    */
     public function posts() {
         return $this->morphedByMany(Post::class, 'likeable');
     }
