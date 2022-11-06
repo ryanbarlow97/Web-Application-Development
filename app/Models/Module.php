@@ -28,6 +28,6 @@ class Module extends Model
      * A module area can have many users (staff/student).
     */
     public function users() {
-        return $this->belongsToMany(User::class, 'users');
+        return $this->hasMany(User::class, 'users');
     }
 }
