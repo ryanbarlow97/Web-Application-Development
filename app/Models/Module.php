@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Module extends Model
 {
     use HasFactory;
-
+    
+    /**
+     * The attributes that are mass assignable.
+     * @var array
+     */
     protected $fillable = [
         'name', 'description', 'module_logo',
     ];
