@@ -26,7 +26,7 @@ class CreatePostsTable extends Migration
 
             
             $table->integer('likes')->default(1);
-            $table->integer('comments_number')->default(0);
+            $table->integer('comment_num')->default(0);
 
             //Created and Updated timestamp attributes
             $table->timestamps();
