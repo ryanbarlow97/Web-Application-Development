@@ -16,17 +16,13 @@ class CreateCommentsTable extends Migration
         Schema::create('comments', function (Blueprint $table) {
             //Primary Key
             $table->id();
-            //Foreign Key
+            //Foreign Keys
             $table->foreignId('user_id')->references('id')->on('users')
                 ->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('post_id')->references('id')->on('posts')
-                ->cascadeOnDelete()->cascadeOnUpdate();
+            ->cascadeOnDelete()->cascadeOnUpdate();
 
-            //count of (up/down)votes
-            $table->integer('upvotes')->default(1);
-            $table->integer('downvotes')->default(0);
-
-            //Content of comment
+            //Content of post
             $table->text('content');
             //Created and Updated timestamp attributes
             $table->timestamps();
