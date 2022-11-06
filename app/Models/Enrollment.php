@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Enrollment extends Model
-{
+class Enrollment extends Model {
     use HasFactory;
 
     //don't need timestamps
@@ -20,12 +19,13 @@ class Enrollment extends Model
         'user_id', 'module_id',
     ];
 
+    //Find user belonging to modules.
     public function findUser() {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    //Find modules belonging to user.
     public function findModule() {
         return $this->belongsTo(Module::class, 'module_id');
     }
-
 }
