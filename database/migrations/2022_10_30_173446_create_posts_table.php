@@ -15,19 +15,17 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             //Primary Key
-            $table->id('post_id');
-
-            //Foreign Key
+            $table->id();
+            //Foreign Keys
             $table->foreignId('user_id')->references('id')->on('users')
                 ->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('module_id')->references('id')->on('modules')
+            ->cascadeOnDelete()->cascadeOnUpdate();
 
             //Content of post
-            $table->string("content");
-
-            
-            $table->integer('likes')->default(1);
-            $table->integer('comment_num')->default(0);
-
+            $table->string('content');
+            //Flair of post
+            $table->string('flair');
             //Created and Updated timestamp attributes
             $table->timestamps();
         });
