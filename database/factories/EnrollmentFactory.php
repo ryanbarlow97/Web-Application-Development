@@ -8,8 +8,7 @@ use App\Models\Module;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class EnrollmentFactory extends Factory
-{
+class EnrollmentFactory extends Factory {
     /**
      * Define the model's default state.
      *
