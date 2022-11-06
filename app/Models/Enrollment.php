@@ -20,6 +20,12 @@ class Enrollment extends Model
         'user_id', 'module_id',
     ];
 
-    
+    public function findUser() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function findModule() {
+        return $this->belongsTo(Module::class, 'module_id');
+    }
 
 }
