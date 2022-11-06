@@ -21,7 +21,7 @@ class Post extends Model
      * Post belongs to a user.
     */
     public function owner() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
     /**
      * Post belongs to a module.
@@ -35,5 +35,11 @@ class Post extends Model
     */
     public function comments() {
         return $this->hasMany(Comment::class);
+    }
+    /**
+     * Get all of the post's likes.
+    */
+    public function likes() {
+        return $this->morphToMany(User::class, 'likeable');
     }
 }
