@@ -13,9 +13,6 @@ use App\Models\Post;
 class LikeableFactory extends Factory {
 
     private $likePairs = [];
-    private $random_post;
-    private $random_comment;
-
 
     /**
      * Define the model's default state.
