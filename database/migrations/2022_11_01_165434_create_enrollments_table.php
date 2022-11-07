@@ -12,16 +12,15 @@ class CreateEnrollmentsTable extends Migration {
      */
     public function up() {
         Schema::create('enrollments', function (Blueprint $table) {
-            //Primary Key
-            $table->id();
-            //Foreign Keys
-            $table->foreignId('user_id')->references('id')->on('users')
-                ->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('module_id')->references('id')->on('modules')
-            ->cascadeOnDelete()->cascadeOnUpdate();  
+           //Primary Keys
+           $table->primary(['user_id', 'module_id']);
+           $table->bigInteger('user_id')->unsigned();
+           $table->bigInteger('module_id')->unsigned();
 
-            //make sure the user only enrolls to the same module once
-            $table->unique(['user_id', 'module_id']);
+            $table->foreign('user_id')->references('id')->on('users')
+                ->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('module_id')->references('id')->on('modules')
+                ->cascadeOnDelete()->cascadeOnUpdate();  
         });
     }
 

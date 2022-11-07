@@ -20,12 +20,12 @@ class Enrollment extends Model {
     ];
 
     //Find user belonging to modules.
-    public function findUser() {
+    public function users() {
         return $this->belongsTo(User::class, 'user_id');
     }
 
     //Find modules belonging to user.
-    public function findModule() {
+    public function modules() {
         return $this->belongsTo(Module::class, 'module_id');
     }
 }
