@@ -7,11 +7,10 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder {
     /**
      * Seed the application's database.
-     *
      * @return void
-     */
+    */
     public function run() {
-        //Call User seeder
+        //Call user seeder
         $this->call(UserSeeder::class);
         //Call module seeder
         $this->call(ModuleSeeder::class);
@@ -22,6 +21,6 @@ class DatabaseSeeder extends Seeder {
         //Call comment seeder
         $this->call(CommentSeeder::class);
         //Call like seeder
-        $this->call(LikeablesSeeder::class);
+        $this->call(LikeableSeeder::class);
     }
 }
