@@ -16,8 +16,11 @@ class UserFactory extends Factory {
      * @return array<string, mixed>
      */
     public function definition() {
-        $created = $this->faker->dateTimeBetween('2010-01-01', '2022-11-05')
-        ->format('Y/m/d');
+ 
+        $created = $this->faker->dateTimeBetween('2015-01-01', '2022-11-05')
+            ->format('Y/m/d');
+        $updated = $this->faker->dateTimeBetween($created, '2022-11-05')
+            ->format('Y/m/d');
 
         return [
             //create fake user
@@ -32,8 +35,7 @@ class UserFactory extends Factory {
             'profile_picture' => Str::random(12) . '.png',
             'remember_token' => Str::random(12),
             'created_at' => $created,
-            'updated_at' => $this->faker->dateTimeBetween($created, '2022-11-05')
-                ->format('Y/m/d'),
+            'updated_at' => $updated,
         ];
     }
 }
