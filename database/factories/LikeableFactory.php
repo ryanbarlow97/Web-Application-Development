@@ -26,19 +26,18 @@ class LikeableFactory extends Factory {
 
         //find a random post.
         $random_post = Post::inRandomOrder()->first();
-        //find random comment inside a post.
-        $random_comment = Comment::inRandomOrder()->first();
-        //find module number from inside post.
-
-        
+        //find random comment.
+        $random_comment = Comment::inRandomOrder()->first();     
 
         //loop to find a unique pair of users/modules
         do {           
             //either like the post or a random comment inside the post
             if(rand(0,1) == 1) {
+                //find a userID from the module which is linked to that post
                 $user_id = $random_post->module->users->random()->users;
                 $likeable_id = $random_post;
             } else {
+                //find a userID from the module which is linked to that comment
                 $user_id = $random_comment->post->module->users->random()->users;
                 $likeable_id = $random_comment;
             }
