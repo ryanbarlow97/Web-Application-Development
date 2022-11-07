@@ -17,7 +17,9 @@ class ModuleFactory extends Factory {
      */
     public function definition() {
         $created = $this->faker->dateTimeBetween('2010-01-01', '2022-11-05')
-        ->format('Y/m/d');
+            ->format('Y/m/d');
+        $updated = $this->faker->dateTimeBetween($created, '2022-11-05')
+            ->format('Y/m/d');
         
         $permitted_chars ='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -28,8 +30,7 @@ class ModuleFactory extends Factory {
             'description' => $this->faker->text(),
             'module_logo' => Str::random(12) . '.png',
             'created_at' => $created,
-            'updated_at' => $this->faker->dateTimeBetween($created, '2022-11-05')
-                ->format('Y/m/d'),
+            'updated_at' => $updated,
         ];
     }
 }
