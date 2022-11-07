@@ -37,10 +37,10 @@ class User extends Authenticatable
     ];
 
     /**
-    * User can belong to multiple modules.
+    * User is enrolled to multiple modules.
     */
-    public function modules() {
-        return $this->belongsToMany(Modules::class, 'modules');
+    public function enrolled() {
+        return $this->hasMany(Enrollment::class, 'user_id');
     }
 
     /**
@@ -64,4 +64,4 @@ class User extends Authenticatable
     public function likedComments() {
         return $this->morphedByMany(Comment::class, 'likeable');
     }
-};
+}
