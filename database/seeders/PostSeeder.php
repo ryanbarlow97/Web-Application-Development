@@ -9,10 +9,9 @@ use App\Models\Post;
 class PostSeeder extends Seeder {
     /**
      * Run the database seeds.
-     *
      * @return void
      */
     public function run() {
-        Post::factory(50)->create();
+        Post::factory(300)->create();
     }
 }
