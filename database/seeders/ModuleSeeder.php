@@ -9,10 +9,9 @@ use App\Models\Module;
 class ModuleSeeder extends Seeder {
     /**
      * Run the database seeds.
-     *
      * @return void
      */
     public function run() {
-        Module::factory(12)->create();
+        Module::factory(25)->create();
     }
 }
