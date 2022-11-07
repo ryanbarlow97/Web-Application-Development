@@ -13,15 +13,14 @@ class CreateLikeablesTable extends Migration
      */
     public function up() {
         Schema::create('likeables', function (Blueprint $table) {
-            //Primary Key
-            $table->id();
-            $table->foreignId('user_id')->references('id')->on('users')
-                ->cascadeOnDelete()->cascadeOnUpdate();
-            $table->integer('likeable_id');
+            //Primary Keys
+            $table->primary(['user_id','likeable_type','likeable_id']);
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('likeable_id')->unsigned();
             $table->string('likeable_type');
-            $table->timestamps();
-            //make sure the user only likes the same post/comment once
-            $table->unique(['user_id', 'likeable_type', 'likeable_id']);
+
+            $table->foreign('user_id')->references('id')->on('users')
+                ->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

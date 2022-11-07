@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Likeable extends Model
-{
+class Likeable extends Model {
     use HasFactory;
 
+    //don't need timestamps
+    public $timestamps = false;
+    
     /**
      * The attributes that are mass assignable.
      * @var array
