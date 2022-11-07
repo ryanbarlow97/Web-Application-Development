@@ -9,10 +9,9 @@ use App\Models\Comment;
 class CommentSeeder extends Seeder {
     /**
      * Run the database seeds.
-     *
      * @return void
      */
     public function run() {
-        Comment::factory(150)->create();
+        Comment::factory(600)->create();
     }
 }
