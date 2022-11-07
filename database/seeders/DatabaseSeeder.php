@@ -18,8 +18,6 @@ class DatabaseSeeder extends Seeder {
         $this->call(EnrollmentSeeder::class);
         //Call post seeder
         $this->call(PostSeeder::class);
-        //Call comment seeder
-        $this->call(CommentSeeder::class);
         //Call like seeder
         $this->call(LikeableSeeder::class);
     }
