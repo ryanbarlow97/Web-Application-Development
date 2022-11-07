@@ -30,6 +30,6 @@ class Module extends Model {
      * A module area can have many users (staff/student).
     */
     public function users() {
-        return $this->hasMany(Enrollment::class, 'module_id');
+        return $this->hasMany(Enrollment::class);
     }
 }
