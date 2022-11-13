@@ -12,6 +12,12 @@ class PostSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        Post::factory(300)->hasComments(3)->create();
+        $randomnum = rand(0,1);
+
+        if ($randomnum == 0) {
+            Post::factory(300)->create();
+        } if ($randomnum == 1) {
+            Post::factory(300)->hasComments(rand(1,6))->create();
+        }
     }
 }
