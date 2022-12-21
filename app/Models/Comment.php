@@ -19,7 +19,7 @@ class Comment extends Model {
     /**
     * A comment belongs to an owner.
     */
-    public function owner() {
+    public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }
 

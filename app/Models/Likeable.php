@@ -22,7 +22,7 @@ class Likeable extends Model {
     ];
     
     //Find User who liked something
-    public function findUser() {
+    public function user() {
         return $this->belongsTo(User::class);
     }
     /**
