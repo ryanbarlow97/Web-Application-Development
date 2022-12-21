@@ -18,13 +18,13 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->date('date_of_birth');
+            #$table->date('date_of_birth');
             //unique email
             $table->string('email')->unique();
             //string to support +44
-            $table->string('mobile')->unique();
-            $table->string('profile_picture');
-            $table->timestamp('email_verified_at')->nullable();
+            #$table->string('mobile')->unique();
+            #$table->string('profile_picture');
+            #$table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
