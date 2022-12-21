@@ -18,6 +18,7 @@ class PostSeeder extends Seeder {
             Post::factory(300)->create();
         } if ($randomnum == 1) {
             Post::factory(300)->hasComments(rand(1,6))->create();
+            
         }
     }
 }
