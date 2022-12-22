@@ -30,6 +30,16 @@ Route::get('/notifications', function () {
 Route::get('/users/{id}', [UserController::class, 'show'])
     ->name('users.show');
 
+Route::get('users/{id}/posts', [UserController::class, 'posts'])
+    ->name('users.posts');
 
+Route::get('users/{id}/comments', [UserController::class, 'comments'])
+    ->name('users.comments');
+
+Route::get('users/{id}/liked_posts', [UserController::class, 'likedPosts'])
+    ->name('users.liked_posts');
+
+Route::get('users/{id}/liked_comments', [UserController::class, 'likedComments'])
+    ->name('users.liked_comments');
 
 require __DIR__.'/auth.php';
