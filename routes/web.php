@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UpvoteController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,5 +47,11 @@ Route::get('users/{id}/liked_comments', [UserController::class, 'likedComments']
 
 Route::get('/posts/{id}', [PostController::class, 'show'])
     ->name('posts.show');
+
+Route::post('/posts/{id}/upvote', [UpvoteController::class, 'upvote'])
+    ->name('posts.upvote');
+
+ Route::post('/posts/{id}/comment', [CommentController::class, 'store'])
+    ->name('posts.store');
 
 require __DIR__.'/auth.php';
