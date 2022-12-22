@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
  
 use App\Models\User;
+
  
 class UserController extends Controller
 {
@@ -21,9 +22,10 @@ class UserController extends Controller
 
     public function posts($id)
     {
-        return view('users.posts', [
-            'users' => Post::findOrFail($id)
-        ]);
+        $user = User::findOrFail($id);
+        $posts = $user->posts;
+
+        return view('users.posts', compact('user', 'posts'));
     }
 
 }
