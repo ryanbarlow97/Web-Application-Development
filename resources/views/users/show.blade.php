@@ -1,12 +1,10 @@
-
 <style>
-table.table2 {
-  margin: auto;
-  width: 50%;
-  text-align: center;
-}
+    table.table2 {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    }
 </style>
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -34,8 +32,8 @@ table.table2 {
                         {{ __('Liked Comments') }}
                     </x-responsive-nav-link>
                 </td>
-            </div>
-            </div>
+                </div>
+                </div>
             </tr>
         </table>
     </x-slot>

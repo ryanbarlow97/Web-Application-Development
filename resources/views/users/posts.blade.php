@@ -1,29 +1,27 @@
 <style>
-table.table1 {
-  margin: auto;
-  width: 45%;
-}
-
-table.table1 td {
-  width: 50px;
-}
-table.table1 td+td {
-  width: fit-content;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.25);
-  padding: 5px;
-  margin: auto;
-}
-.space {
+    table.table1 {
+    margin: auto;
+    width: 45%;
+    }
+    table.table1 td {
+    width: 50px;
+    }
+    table.table1 td+td {
+    width: fit-content;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.25);
+    padding: 5px;
+    margin: auto;
+    }
+    .space {
     border-collapse:separate;
     border-spacing:0 10px;
-}
-table.table2 {
-  margin: auto;
-  width: 50%;
-  text-align: center;
-}
+    }
+    table.table2 {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    }
 </style>
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -51,21 +49,21 @@ table.table2 {
                         {{ __('Liked Comments') }}
                     </x-responsive-nav-link>
                 </td>
-            </div>
-            </div>
+                </div>
+                </div>
             </tr>
         </table>
     </x-slot>
-@foreach ($user->posts as $post)
+    @foreach ($user->posts as $post)
     <table class = "table1 space">
-        <tr>
-            <td>
+    <tr>
+        <td>
             <a href="{{route('users.show', ['id' => $user->id])}}"><img src="{{ $user->profile_picture}}" style="width:42px;height:42px;"></a>
-            </td>
-            <td>
-                {{ $post->content}}
-            </td>
-        </tr>
+        </td>
+        <td>
+            {{ $post->content}}
+        </td>
+    </tr>
     <table>
-@endforeach
+    @endforeach
 </x-app-layout>
