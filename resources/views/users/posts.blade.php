@@ -55,11 +55,12 @@ table.table2 {
             </div>
             </tr>
         </table>
+    </x-slot>
 @foreach ($user->posts as $post)
     <table class = "table1 space">
         <tr>
             <td>
-                <a href="{{$user->id}}"><img src="{{ $user->profile_picture}}" style="width:42px;height:42px;"></a>
+            <a href="{{route('users.show', ['id' => $user->id])}}"><img src="{{ $user->profile_picture}}" style="width:42px;height:42px;"></a>
             </td>
             <td>
                 {{ $post->content}}
@@ -67,5 +68,4 @@ table.table2 {
         </tr>
     <table>
 @endforeach
-    </x-slot>
 </x-app-layout>
