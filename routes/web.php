@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,5 +42,8 @@ Route::get('users/{id}/liked_posts', [UserController::class, 'likedPosts'])
 
 Route::get('users/{id}/liked_comments', [UserController::class, 'likedComments'])
     ->name('users.liked_comments');
+
+Route::get('/posts/{id}', [PostController::class, 'show'])
+    ->name('posts.show');
 
 require __DIR__.'/auth.php';
