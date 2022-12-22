@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
  
 use App\Models\Post;
+use Illuminate\Http\Request;
 
  
 class PostController extends Controller
@@ -16,7 +17,8 @@ class PostController extends Controller
     public function show($id)
     {
         return view('posts.show', [
-            'posts' => Post::findOrFail($id)
+            'posts' => Post::findOrFail($id),
+            'likes' => Post::findOrFail($id)->likeables()->get(),
         ]);
     }
 }
