@@ -69,7 +69,7 @@
 
             @if (Route::has('login') && Auth::check())
                 <div class="top-right links">
-                    <a href="{{ url('/profile') }}">Profile</a>
+                    <a href="{{ url('/home') }}">Home</a>
                 </div>
             @elseif (Route::has('login') && !Auth::check())
                 <div class="top-right links">
