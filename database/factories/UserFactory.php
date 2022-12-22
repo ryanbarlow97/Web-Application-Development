@@ -32,7 +32,7 @@ class UserFactory extends Factory {
             #'email_verified_at' => now(),
             #'mobile' => $this->faker->phoneNumber(),
             'password' => hash('sha512', $this->faker->name()),
-            'profile_picture' => Str::random(12) . '.png',
+            'profile_picture' => $this->faker->imageUrl(100, 100),
             'remember_token' => Str::random(12),
             'created_at' => $created,
             'updated_at' => $updated,
