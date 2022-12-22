@@ -28,4 +28,28 @@ class UserController extends Controller
         return view('users.posts', compact('user', 'posts'));
     }
 
+    public function comments($id)
+    {
+        $user = User::findOrFail($id);
+        $comments = $user->comments;
+
+        return view('users.comments', compact('user', 'comments'));
+    }
+
+    public function likedPosts($id)
+    {
+        $user = User::findOrFail($id);
+        $likedPosts = $user->likedPosts;
+
+        return view('users.liked-posts', compact('user', 'likedPosts'));
+    }
+
+    public function likedComments($id)
+    {
+        $user = User::findOrFail($id);
+        $likedComments = $user->likedComments;
+
+        return view('users.liked-comments', compact('user', 'likedComments'));
+    }
+
 }
