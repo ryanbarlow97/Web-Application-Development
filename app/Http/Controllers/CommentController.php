@@ -27,4 +27,18 @@ class CommentController extends Controller
         return Redirect::back()
         ->with('success', 'Comment successful!');
   }
-}
+  
+  public function destroy($id)
+  {
+    $comment = Comment::find($id); 
+    if ($comment->user_id == auth()->user()->id) {
+           
+        $comment->delete();
+        return redirect()->back()
+            ->with('success', 'Comment deleted successfully');
+    } else {
+        return redirect()->back()
+          ->with('error', 'You do not have permission to delete this comment');
+    }
+  }
+}        
