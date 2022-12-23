@@ -33,25 +33,41 @@ Route::get('/notifications', function () {
 Route::get('/users/{id}', [UserController::class, 'show'])
     ->name('users.show');
 
-Route::get('users/{id}/posts', [UserController::class, 'posts'])
+Route::get('/users/{id}/posts', [UserController::class, 'posts'])
     ->name('users.posts');
 
-Route::get('users/{id}/comments', [UserController::class, 'comments'])
+Route::get('/users/{id}/comments', [UserController::class, 'comments'])
     ->name('users.comments');
 
-Route::get('users/{id}/liked_posts', [UserController::class, 'likedPosts'])
+Route::get('/users/{id}/liked_posts', [UserController::class, 'likedPosts'])
     ->name('users.liked_posts');
 
-Route::get('users/{id}/liked_comments', [UserController::class, 'likedComments'])
+Route::get('/users/{id}/liked_comments', [UserController::class, 'likedComments'])
     ->name('users.liked_comments');
 
 Route::get('/posts/{id}', [PostController::class, 'show'])
     ->name('posts.show');
 
-Route::post('/posts/{id}/upvote', [UpvoteController::class, 'upvote'])
-    ->name('posts.upvote');
 
- Route::post('/posts/{id}/comment', [CommentController::class, 'store'])
-    ->name('posts.store');
+
+
+Route::match(['get', 'post'], '/upvote',  [UpvoteController::class, 'upvote']);
+
+    //need posts.store
+    //need posts.delete
+
+
+
+Route::post('/comments/{id}', [CommentController::class, 'store'])
+    ->name('comments.store');
+
+Route::delete('/comments/{id}', [CommentController::class, 'destroy'])
+    ->name('comments.destroy');
+
+Route::post('/comments/{id}/upvote', [UpvoteController::class, 'upvoteComment'])
+    ->name('comments.upvoteComment');
+
+    //need comment.upvote
+
 
 require __DIR__.'/auth.php';
