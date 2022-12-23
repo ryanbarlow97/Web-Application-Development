@@ -32,7 +32,7 @@ class Comment extends Model {
     /**
      * Get all of the post's likes.
     */
-    public function likes() {
+    public function likeables() {
         return $this->morphToMany(User::class, 'likeable');
     }
 }
