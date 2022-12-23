@@ -35,26 +35,19 @@
     .username:hover {
     color: purple;
     }
-    .green {
+    .upvoted {
     font-weight: bold;
     color: green;  
     }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <?php
-    // Define $upvoted as a boolean value indicating whether the current user has upvoted the post
-    $upvoted = false;
-    
-    // Check if the user has upvoted the post
     $post = \App\Models\Post::findOrFail($posts->id);
-    $like = \App\Models\Likeable::where([
+    $likePost = \App\Models\Likeable::where([
         ['likeable_id', $post->id],
         ['likeable_type', 'App\Models\Post'],
         ['user_id', auth()->user()->id],
     ])->first();
-    
-    if ($like) {
-        $upvoted = true;
-    }
     ?>
 <x-app-layout>
     <table class="table1 space">
@@ -63,24 +56,45 @@
                 <table class="table1 space">
                     <tr>
                         <td style="vertical-align: center; text-align:center;">
-                            <form action="{{ route('posts.upvote', auth()->user()->id) }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="post_id" value="{{$posts->id}}">
-                                <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
-                                <a href="#" onclick="event.preventDefault(); this.closest('form').submit()" class="<?php if ($upvoted) { echo 'green'; } ?>">UP</a>
-                            </form>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="vertical-align: center; text-align: center;">
-                            <?php
-                                if ($posts->likeables) {
-                                  $likes = count($posts->likeables);
-                                } else {
-                                  $likes = 0;
-                                }
-                                echo $likes;
-                                ?>
+                            @php
+                            $user = auth()->user();
+                            $upvote = \App\Models\Likeable::where([
+                            ['likeable_id', $post->id],
+                            ['likeable_type', 'App\Models\Post'],
+                            ['user_id', $user->id],
+                            ])->first();
+                            @endphp
+                            @if($upvote)
+                            <button id="upvote-post-button" class="upvoted" data-post-id="{{ $post->id }}">{{count($posts->likeables)}}</button>
+                            @else
+                            <button id="upvote-post-button" data-post-id="{{ $post->id }}">{{count($posts->likeables)}}</button>
+                            @endif
+                            <script>
+                                $('#upvote-post-button').click(function() {
+                                    // Send a POST request to the server using AJAX
+                                    $.ajax({
+                                    url: "/upvote",
+                                    type: 'GET', // the type of request
+                                    data: { // the data to send to the server
+                                        _token: '@csrf', // CSRF token
+                                        likeable_id: $(this).data('post-id'),
+                                        likeable_type: 'App\\Models\\Post',
+                                        user_id: '{{auth()->user()->id}}'
+                                    },
+                                    success: function(response) { // function to be called if the request is successful
+                                        $('#upvote-post-button').text(response.likes);
+                                        if (response.upvoted) {
+                                            $('#upvote-post-button').addClass('upvoted');
+                                        } else {
+                                            $('#upvote-post-button').removeClass('upvoted');
+                                        }
+                                    },
+                                    error: function(xhr, status, error) { // function to be called if the request fails
+                                        alert('An error occurred: ' + error);
+                                    }
+                                    });
+                                });
+                            </script>
                         </td>
                     </tr>
                 </table>
@@ -105,8 +119,16 @@
             </td>
         </tr>
         @foreach ($posts->comments as $comment)
+        <?php
+            $comments = \App\Models\Comment::findOrFail($comment->id);
+            $likeComment = \App\Models\Likeable::where([
+                ['likeable_id', $comments->id],
+                ['likeable_type', 'App\Models\Comment'],
+                ['user_id', auth()->user()->id],
+            ])->first();
+            ?>
         <tr>
-            <td><a href="{{route('users.show', ['id' =>$comment->user->id])}}"><img src="{{ $comment->user->profile_picture}}"></a></td>
+            <td><a href="{{route('users.show', ['id' =>$comment->user->id])}}"><img style="border-radius: 50%;" src="{{ $comment->user->profile_picture}}"></a></td>
             <td class="light" style="text-align: center;" >
                 <div class="post-info">
                     <a class="username" href="{{ route('users.show', $comment->user) }}">{{ $comment->user->first_name }}</a> commented
@@ -124,37 +146,79 @@
                     @endif
                 </div>
                 {{ $comment->content }}
+                <br> 
+                <table style="width:100%; font-size:12px;">
+                    <td>
+                        @if ($comment->user_id != auth()->user()->id) 
+                        @php
+                        $user = auth()->user();
+                        $upvoteComment = \App\Models\Likeable::where([
+                        ['likeable_id', $comment->id],
+                        ['likeable_type', 'App\Models\Comment'],
+                        ['user_id', $user->id],
+                        ])->first();
+                        @endphp
+                        @if($upvoteComment)
+                        <button id="upvote-comment-button" class="upvoted" data-comment-id="{{ $comment->id }}">{{count($comments->likeables)}}</button>
+                        @else
+                        <button id="upvote-comment-button" data-comment-id="{{ $comment->id }}">{{count($comments->likeables)}}</button>
+                        @endif
+                        @endif
+                    </td>
+                    <td>
+                        @if ($comment->user_id == auth()->user()->id)
+                        <form style="text-align:right"  action="{{ route('comments.destroy', $comment->id) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="comment_id" value="{{$comments->id}}">
+                            <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        @endif
+                    </td>
+                </table>
             </td>
         </tr>
         @endforeach
+        <script>
+            $('button[data-comment-id]').click(function() {
+                var button = $(this); // store a reference to the clicked button
+            
+                // Send a POST request to the server using AJAX
+                $.ajax({
+                url: "/upvote",
+                type: 'GET', // the type of request
+                data: { // the data to send to the server
+                    _token: '@csrf', // CSRF token
+                    likeable_id: $(this).data('comment-id'),
+                    likeable_type: 'App\\Models\\Comment',
+                    user_id: '{{auth()->user()->id}}'
+                },
+                success: function(response) { // function to be called if the request is successful
+                    // update the text of the clicked button
+                    button.text(response.likes);
+                    if (response.upvoted) {
+                    button.addClass('upvoted');
+                    } else {
+                    button.removeClass('upvoted');
+                    }
+                },
+                error: function(xhr, status, error) { // function to be called if the request fails
+                    alert('An error occurred: ' + error);
+                }
+                });
+            });
+        </script> 
         <td></td>
         <td>
-            <form action="{{ route('posts.store', auth()->user()->id) }}" method="POST">
+            <form action="{{ route('comments.store', auth()->user()->id) }}" method="POST">
                 @csrf
                 <input type="hidden" name="post_id" value="{{ $posts->id }}">
                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                 <textarea style="textarea" name="content" rows="3" placeholder="Add a comment..." required></textarea>
-                <br>
         <td>
         <button type="submit" class="btn btn-primary">Comment</button></td>
         </form>
         </td>
     </table>
-    <br></br>
 </x-app-layout>
-<script>
-    function upvote() {
-      // Make an HTTP POST request to the server
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', '{{ route('posts.upvote', $posts->id)}}');
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      xhr.onload = function() {
-        if (xhr.status === 200) {
-          // Update the like count on the page
-          var response = JSON.parse(xhr.responseText);
-          document.getElementById('like-count').innerHTML = response.likeCount;
-        }
-      };
-      xhr.send('post_id={{ $posts->id }}&user_id={{ auth()->user()->id }}');
-    }
-</script>
