@@ -30,44 +30,33 @@ Route::get('/notifications', function () {
     return view('notifications');
 })->middleware(['auth', 'verified'])->name('notifications');
 
-Route::get('/users/{id}', [UserController::class, 'show'])
-    ->name('users.show');
-
+//Profile Posts
 Route::get('/users/{id}/posts', [UserController::class, 'posts'])
     ->name('users.posts');
-
+//Profile Comments
 Route::get('/users/{id}/comments', [UserController::class, 'comments'])
     ->name('users.comments');
-
+//Profile Liked Posts
 Route::get('/users/{id}/liked_posts', [UserController::class, 'likedPosts'])
     ->name('users.liked_posts');
-
+//Profile Liked Comments
 Route::get('/users/{id}/liked_comments', [UserController::class, 'likedComments'])
     ->name('users.liked_comments');
 
+//View User ID
+Route::get('/users/{id}', [UserController::class, 'show'])
+->name('users.show');
+//View Post ID
 Route::get('/posts/{id}', [PostController::class, 'show'])
     ->name('posts.show');
 
+    
+//Create Post
 
-
-
-Route::match(['get', 'post'], '/upvote',  [UpvoteController::class, 'upvote']);
-
-    //need posts.store
-    //need posts.delete
-
-
-
+//Create Comment
 Route::post('/comments/{id}', [CommentController::class, 'store'])
     ->name('comments.store');
 
-Route::delete('/comments/{id}', [CommentController::class, 'destroy'])
-    ->name('comments.destroy');
-
-Route::post('/comments/{id}/upvote', [UpvoteController::class, 'upvoteComment'])
-    ->name('comments.upvoteComment');
-
-    //need comment.upvote
 
 
 require __DIR__.'/auth.php';
