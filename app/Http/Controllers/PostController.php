@@ -16,9 +16,12 @@ class PostController extends Controller
      */
     public function show($id)
     {
+        $post = Post::findOrFail($id);
+        $comments = $post->comments;
+
         return view('posts.show', [
-            'posts' => Post::findOrFail($id),
-            'likes' => Post::findOrFail($id)->likeables()->get(),
+            'posts' => $post,
+            'comments' => $comments,
         ]);
     }
 }
