@@ -35,4 +35,25 @@ class Comment extends Model {
     public function likeables() {
         return $this->morphToMany(User::class, 'likeable');
     }
+    
+    public function likes() {
+        return $this->likeables()
+            ->where('likeable_id', $this->id)
+            ->where('likeable_type', 'App\Models\Comment')
+            ->count();
+        }
+    
+        public function isUpvotedBy(User $user){
+        return $this->likeables()
+            ->where('user_id', $user->id)
+            ->exists();
+        }
+        
+        public function upvote(User $user) {
+        $this->likeables()->attach($user);
+        }
+    
+        public function unupvote(User $user){
+        $this->likeables()->detach($user);
+        }
 }
