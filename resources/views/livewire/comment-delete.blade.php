@@ -1,9 +1,15 @@
 <div>
-    <button wire:click="deleteComment" class="btn btn-danger">Delete</button>
+  <!-- Use a button element to display the delete button -->
+<button wire:click="deleteComment">Delete</button>
 
-        <script>
-            Livewire.on('commentDeleted', commentId => {
-                document.getElementById("comment-{{ $commentId }}").remove();
-            })
-        </script>
+<!-- Add a Livewire event listener to handle the deletion of comments -->
+<script>
+  window.livewire.on('commentDeleted', commentId => {
+    // Find the list-group-item element that contains the data-comment-id attribute with the matching value
+    const commentElement = document.querySelector(`[data-comment-id="${commentId}"]`);
+
+    // Delete the comment element from the DOM
+    commentElement.remove();
+  });
+</script>
 </div>
