@@ -26,8 +26,8 @@ class UserFactory extends Factory {
             //create fake user
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            #'date_of_birth' => $this->faker->dateTimeBetween('1970-01-01', '2003-12-31')
-            #    ->format('Y/m/d'),
+            'date_of_birth' => $this->faker->dateTimeBetween('1970-01-01', '2003-12-31')
+                ->format('Y/m/d'),
             'email' => $this->faker->unique()->safeEmail(),
             #'email_verified_at' => now(),
             #'mobile' => $this->faker->phoneNumber(),
