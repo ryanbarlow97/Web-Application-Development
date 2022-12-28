@@ -46,17 +46,15 @@ Route::get('/users/{id}/liked_comments', [UserController::class, 'likedComments'
 //View User ID
 Route::get('/users/{id}', [UserController::class, 'show'])
 ->name('users.show');
-//View Post ID
-Route::get('/posts/{id}', [PostController::class, 'show'])
-    ->name('posts.show');
 
-    
+
+//View Post ID
+Route::get('/posts/{id}', App\Http\Livewire\ShowPost::class);
+
 //Create Post
 
 //Create Comment
-Route::post('/comments/{id}', [CommentController::class, 'store'])
-    ->name('comments.store');
-
+Route::get('/upvote', App\Http\Livewire\Upvote::class);
 
 
 require __DIR__.'/auth.php';
