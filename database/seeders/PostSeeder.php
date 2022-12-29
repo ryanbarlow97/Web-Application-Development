@@ -7,11 +7,13 @@ use Illuminate\Database\Seeder;
 use App\Models\Post;
 
 class PostSeeder extends Seeder {
+    public $post;
     /**
      * Run the database seeds.
      * @return void
      */
     public function run() {
-        Post::factory(300)->hasComments(rand(1,6))->create();
+        Post::factory(300)
+            ->hasComments(3)->create();
     }
 }
