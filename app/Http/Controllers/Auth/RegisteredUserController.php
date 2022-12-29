@@ -34,6 +34,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'user_name' => ['required', 'string', 'max:24', 'unique:users'],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -42,20 +43,15 @@ class RegisteredUserController extends Controller
             'profile_picture' => ['image', 'max:1024'],
 
         ]);
-
         $user = User::create([
+            'user_name' => $request->user_name,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'date_of_birth' => $request->date_of_birth,
+            'profile_picture' => asset('/images/default_profile_picture.png'),
         ]);
-        
-        if ($request->hasFile('profile_picture')) {
-            $user->profile_picture = $request->file('profile_picture')->store('profile_pictures', 'public');
-        } else {
-            $user->profile_picture = asset('/images/default_profile_picture.png');
-        }
 
         event(new Registered($user));
 

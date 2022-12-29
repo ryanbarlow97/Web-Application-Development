@@ -24,6 +24,7 @@ class UserFactory extends Factory {
 
         return [
             //create fake user
+            'user_name' => $this->faker->userName(),
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'date_of_birth' => $this->faker->dateTimeBetween('1970-01-01', '2003-12-31')
