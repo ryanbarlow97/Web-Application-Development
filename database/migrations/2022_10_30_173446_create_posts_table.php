@@ -17,9 +17,6 @@ class CreatePostsTable extends Migration {
             //Foreign Keys
             $table->foreignId('user_id')->references('id')->on('users')
                 ->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('module_id')->references('id')->on('modules')
-            ->cascadeOnDelete()->cascadeOnUpdate();
-
             //Content of post
             $table->string('content');
             //Flair of post
