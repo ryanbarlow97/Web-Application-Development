@@ -11,7 +11,7 @@
     <div class="card mb-3">
         <div class="card-body">
             <div class="flex">
-                <img src="{{ $post->user->profile_picture }}" class="mr-3 rounded-full w-10 h-10">
+                <img src="{{ $post->user->profile_picture }}"  class="mr-3 rounded-circle" style="width: 64px; height: 64px;">
                 <div class="media-body">
                     <h5 class="mt-0 mb-0 font-bold">
                         <a href="{{ route('profile', $post->user) }}">{{ $post->user->first_name }} {{ $post->user->last_name }}</a>
