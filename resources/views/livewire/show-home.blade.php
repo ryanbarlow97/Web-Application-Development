@@ -5,11 +5,9 @@
   @livewireScripts
   <!-- Use the container class to center the content -->
   <div class="container mx-auto max-w-3xl py-2">
-    
-    <div class="px-5 pt-5 flex rounded-xl shadow-xl bg-white" >
-
+    <div data-submit-id="submit-post">
+      <livewire:post-create />
     </div>
-
     @foreach (\App\Models\Post::all()->sortBy('created_at')->reverse() as $post)
       <div class="card-body py-1" data-post-id="{{ $post->id }}">
         <!-- Use the flex class to align the elements horizontally -->
