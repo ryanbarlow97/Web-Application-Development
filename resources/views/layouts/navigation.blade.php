@@ -3,7 +3,6 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
@@ -11,42 +10,42 @@
                     </x-nav-link>
                     <x-nav-link :href="route('notifications')" :active="request()->routeIs('notifications')">
                         {{ __('Notifications') }}
-                    </x-nav-link>       
-                    <x-nav-link :href="route('users.show', ['id' => Auth::user()->id])" :active="request()->routeIs('users')">
+                    </x-nav-link>      
+                    <x-nav-link :href="route('profile', ['user_name' => Auth::user()->user_name])" :active="request()->routeIs('profile')">
                         {{ __('My Profile') }}
-                    </x-nav-link>                 
+                    </x-nav-link>                
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <!-- Profile Picture -->
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <img src="{{ Auth::user()->profile_picture }}" class="h-10 w-10 rounded-full" alt="{{ Auth::user()->name }}">
-                </div>
-                <div class="ml-3">
                 <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <div>{{ Auth::user()->name }}</div>
-                            <span id="first_name"></span>&nbsp;<span id="last_name"></span>
-                            <script>
-                                function toProperCase(name) {
-                                return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-                                }
-                                var firstName = '<?php echo Auth::user()->first_name; ?>';
-                                var lastName = '<?php echo Auth::user()->last_name; ?>';
-                                document.getElementById('first_name').innerHTML = toProperCase(firstName);
-                                document.getElementById('last_name').innerHTML = toProperCase(lastName);
-                            </script>
-                            <div class="ml-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                            </div>
-                        </button>
-                    </x-slot>
+                <x-slot name="trigger">
+    <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+        <img src="{{ Auth::user()->profile_picture }}" class="w-8 h-8 rounded-full" alt="Profile picture">
+        <div class="ml-2">{{ Auth::user()->name }}</div>
+        <span id="first_name"></span>&nbsp;<span id="last_name"></span>
+        <script>
+            function toProperCase(name) {
+            return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+            }
+            var firstName = '<?php
+echo Auth::user()->first_name;
+?>';
+            var lastName = '<?php
+echo Auth::user()->last_name;
+?>';
+            document.getElementById('first_name').innerHTML = toProperCase(firstName);
+            document.getElementById('last_name').innerHTML = toProperCase(lastName);
+        </script>
+        <div class="ml-1">
+            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+        </div>
+    </button>
+</x-slot>
+
 
                     <x-slot name="content">
                         <!-- Authentication -->
@@ -84,11 +83,11 @@
             <x-responsive-nav-link :href="route('notifications')" :active="request()->routeIs('notifications')">
                 {{ __('Notifications') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('users.show', ['id' => Auth::user()->id])" :active="request()->routeIs('users')">
+            <x-responsive-nav-link :href="route('profile', ['user_name' => Auth::user()->user_name])" :active="request()->routeIs('profile')">
                 {{ __('My Profile') }}
             </x-responsive-nav-link>
         </div>
-       
+      
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
@@ -100,6 +99,7 @@
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
+
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">

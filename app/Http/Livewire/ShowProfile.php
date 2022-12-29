@@ -11,9 +11,9 @@ class ShowProfile extends Component
     public $user;
     public $section = 'posts';
 
-    public function mount($id)
+    public function mount($user_name)
     {
-        $this->user = User::findOrFail($id);
+        $this->user = User::where('user_name', $user_name)->first();
     }
 
     public function setSection($section)

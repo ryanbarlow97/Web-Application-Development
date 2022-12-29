@@ -17,9 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('home');
-})->middleware(['auth', 'verified'])->name('home');
+//View the Home Page
+Route::get('/home', App\Http\Livewire\ShowHome::class)
+    ->middleware(['auth', 'verified'])->name('home'); 
 
 
 Route::get('/notifications', function () {
@@ -27,7 +27,7 @@ Route::get('/notifications', function () {
 })->middleware(['auth', 'verified'])->name('notifications');
 
 //View Profile ID
-Route::get('/profile/{id}', App\Http\Livewire\ShowProfile::class)
+Route::get('/profile/@{user_name}', App\Http\Livewire\ShowProfile::class)
     ->middleware(['auth', 'verified'])->name('profile');
 
 //View Post ID
