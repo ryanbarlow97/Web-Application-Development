@@ -12,10 +12,6 @@ class DatabaseSeeder extends Seeder {
     public function run() {
         //Call user seeder
         $this->call(UserSeeder::class);
-        //Call module seeder
-        $this->call(ModuleSeeder::class);
-        //Call enrollment seeder
-        $this->call(EnrollmentSeeder::class);
         //Call post seeder
         $this->call(PostSeeder::class);
         //Call like seeder

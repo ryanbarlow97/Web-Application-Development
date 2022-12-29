@@ -13,7 +13,7 @@ class Post extends Model {
      * @var array
      */
     protected $fillable = [
-        'user_id', 'module_id', 'content', 'flair',
+        'user_id', 'content', 'flair',
     ];
 
     /**
@@ -21,12 +21,6 @@ class Post extends Model {
     */
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
-    }
-    /**
-     * Post belongs to a module.
-    */
-    public function module() {
-        return $this->belongsTo(Module::class, 'module_id');
     }
 
     /**

@@ -37,13 +37,6 @@ class User extends Authenticatable
     ];
 
     /**
-    * User is enrolled to multiple modules.
-    */
-    public function enrolled() {
-        return $this->hasMany(Enrollment::class, 'user_id');
-    }
-
-    /**
      * User can have many posts.
      * User can have many comments.
     */

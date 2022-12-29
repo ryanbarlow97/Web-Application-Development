@@ -5,7 +5,6 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Module;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
@@ -27,7 +26,6 @@ class PostFactory extends Factory {
         return [
             //create fake posts inside module area
             'user_id' => $first_user,
-            'module_id' => $first_module,
             'content' => $this->faker->text(),
             'flair' => $this->faker->text(6),
             'created_at' => $created,
