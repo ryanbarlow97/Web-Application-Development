@@ -1,3 +1,3 @@
 <div>
-  <button class="text-xs" wire:click="deletePost">Delete</button>
+  <button class="text-xs pb-1" wire:click="deletePost">Delete</button>
 </div>

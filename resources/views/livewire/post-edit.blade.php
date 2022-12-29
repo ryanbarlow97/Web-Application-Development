@@ -1,6 +1,6 @@
 <div>
     <!-- Use a button element to display the delete button -->
-    <button class="mr-2 text-xs" wire:click="$editMode ? setSection('editPost') : setSection('savePost')">
+    <button class="mr-2 text-xs pb-1" wire:click="$editMode ? setSection('editPost') : setSection('savePost')">
         {{ $editMode ? 'Edit' : 'Save' }}
     </button>
 

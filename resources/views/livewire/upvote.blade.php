@@ -1,4 +1,4 @@
-<div class="flex items-center pt-1">
+<div class="flex items-center">
     <a wire:click="{{ $upvoted ? 'unupvote' : 'upvote' }}" class="mr-2">
         <!-- Use the $upvoted variable to determine which image to display -->
         <img src="{{ $upvoted ? asset('/images/canvas-heart-upvoted.png') : asset('/images/canvas-heart.png') }}" width="15" height="15">

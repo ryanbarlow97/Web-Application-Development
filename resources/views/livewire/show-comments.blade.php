@@ -11,12 +11,12 @@
 					<h5>
 						<div class="flex items-center">
 						<img class="w-12 h-12 rounded-full mr-4 max-w-4xl" src="{{ $comment->user->profile_picture}}">
-						<a class="font-bold text-lg" href="{{ route('profile', $comment->user->user_name) }}">{{ $comment->user->first_name }} {{ $comment->user->last_name }}</a>  ‎ @‎{{$comment->user->user_name}} · @if($comment->created_at->diffInDays(now()) < 2) {{ $comment->created_at->diffForHumans() }} @else {{$comment->created_at->toFormattedDateString()}} @endif
+						<a class="font-bold text-lg hover:text-blue-700 active:text-blue-700" href="{{ route('profile', $comment->user->user_name) }}">{{ $comment->user->first_name }} {{ $comment->user->last_name }}</a>  ‎ @‎{{$comment->user->user_name}} · @if($comment->created_at->diffInDays(now()) < 2) {{ $comment->created_at->diffForHumans() }} @else {{$comment->created_at->toFormattedDateString()}} @endif
 						</div>
 						<!-- Use the small class to style the comment timestamp -->
 					</h5>
 					<!-- Use the card-text class to style the comment content -->
-					<p class="card-text pt-2 text-base break-words">{{ $comment->content }}</p>
+					<p class="card-text py-2 text-base break-words">{{ $comment->content }}</p>
 					<div>
 						<div class="items-center">
 							<livewire:upvote :likeableType="'App\\Models\\Comment'" :likeableId="$comment->id" :wire:key="'comment-like-' . $comment->id" />
