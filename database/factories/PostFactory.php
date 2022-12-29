@@ -17,10 +17,9 @@ class PostFactory extends Factory {
      * @return array<string, mixed>
      */
     public function definition() {
-        $created = $this->faker->dateTimeBetween('2010-01-01', '2022-11-05')
+        $created = $this->faker->dateTimeBetween('2010-01-01', now())
             ->format('Y/m/d');
-        $updated = $this->faker->dateTimeBetween($created, '2022-11-05')
-            ->format('Y/m/d');
+        $updated = $created;
 
         $first_module = Module::inRandomOrder()->first();
         $first_user = $first_module->users->random()->users;

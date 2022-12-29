@@ -17,15 +17,13 @@ class CommentFactory extends Factory {
      * @return array<string, mixed>
      */
     public function definition() {
-        $created = $this->faker->dateTimeBetween('2010-01-01', '2022-11-05')
-        ->format('Y/m/d');
-        $updated = $this->faker->dateTimeBetween($created, '2022-11-05')
-        ->format('Y/m/d');
 
         $first_post= Post::inRandomOrder()->first();
         $first_user = $first_post->module->users->random()->users;
 
-
+        $created = $this->faker->dateTimeBetween($first_post->created_at, now())
+            ->format('Y/m/d');
+        $updated = $created;
 
         return [
             //create fake posts inside module area
