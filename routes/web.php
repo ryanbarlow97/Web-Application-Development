@@ -30,7 +30,7 @@ Route::get('/notifications', function () {
 Route::get('/profile/@{user_name}', App\Http\Livewire\ShowProfile::class)
     ->middleware(['auth', 'verified'])->name('profile');
 
-//View Post ID
+//View Post and Comments
 Route::get('/comments/{id}', App\Http\Livewire\ShowPost::class)
     ->middleware(['auth', 'verified'])->name('post');
 
