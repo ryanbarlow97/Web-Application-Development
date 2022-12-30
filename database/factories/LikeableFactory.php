@@ -12,6 +12,7 @@ use App\Models\Post;
  */
 class LikeableFactory extends Factory {
 
+
     private $likePairs = [];
 
     /**
@@ -21,33 +22,48 @@ class LikeableFactory extends Factory {
      */
     public function definition() {
 
-        //find a random post.
-        $random_post = Post::inRandomOrder()->first();
-        //find random comment.
-        $random_comment = Comment::inRandomOrder()->first();     
 
-        //loop to find a unique pair of users/modules
-        do {           
-            //either like the post or a random comment inside the post
-            if(rand(0,1) == 1) {
-                //find a userID from the module which is linked to that post
-                $user_id = $random_post->user_id;
-                $likeable_id = $random_post;
+        // Loop to find a unique pair of users/modules
+        do {
+            // Either like the post or a random comment inside the post
+            if (rand(0, 1) == 1) {
+                //find a random post.
+                $random_post = Post::inRandomOrder()->first();
+                $random_user = User::inRandomOrder()->first();
+
+                // Find a user ID from the module which is linked to that post
+                $user_id = $random_user->id;
+                $likeable_id = $random_post->id;
+                $likeable_type = get_class($random_post);
             } else {
-                //find a userID from the module which is linked to that comment
-                $user_id = $random_comment->user_id;
-                $likeable_id = $random_comment;
+                //find random comment.
+                $random_comment = Comment::inRandomOrder()->first();     
+                $random_user = User::inRandomOrder()->first();
+
+                // Find a user ID from the module which is linked to that comment
+                $user_id = $random_user->id;
+                $likeable_id = $random_comment->id;
+                $likeable_type = get_class($random_comment);
             }
-        } while(in_array(array($user_id, $likeable_id), $this->likePairs));
+
+            // Check if the combination of $user_id and $likeable_id exists in the $this->likePairs array
+            $pair_exists = false;
+            foreach ($this->likePairs as $pair) {
+                if ($pair[0] == $user_id && $pair[1] == $likeable_id) {
+                    $pair_exists = true;
+                    break;
+                }
+            }
+        } while ($pair_exists);
+
 
         //when a unique pair is found, add it to the *found* pairs array
         array_push($this->likePairs, array($user_id, $likeable_id));
 
-        $likeable_type = get_class($likeable_id);
 
         return [
             'user_id' => $user_id,
-            'likeable_id' => $likeable_id->id,
+            'likeable_id' => $likeable_id,
             'likeable_type' => $likeable_type,
         ];        
     }

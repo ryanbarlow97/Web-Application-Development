@@ -12,6 +12,6 @@ class LikeableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        Likeable::factory(500)->create();
+        Likeable::factory(5000)->create();
     }
 }
