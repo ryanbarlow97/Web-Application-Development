@@ -21,13 +21,10 @@
             <p class="card-text ml-16 py-2 text-base break-normal">{{ $post->content }}</p>
             <div class="items-center pb-4">
               <livewire:upvote :likeableType="'App\\Models\\Post'" :likeableId="$post->id" :wire:key="'post-like-' . $post->id" />
-              @if(Auth::check() && Auth::user()->id == $post->user->id) 
-                <livewire:home-post-delete :postId="$post->id" :wire:key="'post-delete-' . $post->id" />
-              @endif
             </div> 
           </div>
         </div>
-		  </button >
+		  </button>
     @endforeach
 	</div>
 </div>
