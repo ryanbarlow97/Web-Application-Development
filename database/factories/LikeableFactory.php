@@ -31,11 +31,11 @@ class LikeableFactory extends Factory {
             //either like the post or a random comment inside the post
             if(rand(0,1) == 1) {
                 //find a userID from the module which is linked to that post
-                $user_id = $random_post->module->users->random()->users;
+                $user_id = $random_post->user_id;
                 $likeable_id = $random_post;
             } else {
                 //find a userID from the module which is linked to that comment
-                $user_id = $random_comment->post->module->users->random()->users;
+                $user_id = $random_comment->user_id;
                 $likeable_id = $random_comment;
             }
         } while(in_array(array($user_id, $likeable_id), $this->likePairs));

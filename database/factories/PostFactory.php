@@ -16,16 +16,15 @@ class PostFactory extends Factory {
      * @return array<string, mixed>
      */
     public function definition() {
-        $created = $this->faker->dateTimeBetween('2010-01-01', now())
+        $created = $this->faker->dateTimeBetween('2020-01-01', '2021-01-01')
             ->format('Y/m/d');
         $updated = $created;
 
-        $first_module = Module::inRandomOrder()->first();
-        $first_user = $first_module->users->random()->users;
+        $first_user = User::inRandomOrder()->first();
 
         return [
             //create fake posts inside module area
-            'user_id' => $first_user,
+            'user_id' => $first_user->id,
             'content' => $this->faker->text(),
             'flair' => $this->faker->text(6),
             'created_at' => $created,
