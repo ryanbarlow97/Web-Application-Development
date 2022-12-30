@@ -17,7 +17,7 @@
 					<div class="flex items-center">
 						<livewire:upvote :likeableType="'App\\Models\\Post'" :likeableId="$post->id" :wire:key="'post-like-' . $post->id" />
 					</div> 
-					@if(Auth::check() && Auth::user()->id == Auth::user()->id) 
+					@if(Auth::check() && Auth::user()->id == $post->user->id) 
 					<div class="flex">
 						<livewire:post-edit :postId="$post->id" :wire:key="'post-edit-' . $post->id" />
 						<livewire:post-delete :postId="$post->id" :wire:key="'post-delete-' . $post->id" />
