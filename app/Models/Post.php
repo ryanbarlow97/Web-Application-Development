@@ -23,6 +23,11 @@ class Post extends Model {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    
+    public function image() {
+        return $this->hasOne(Image::class, 'image_id');
+    }
+
     /**
      * Post can have many comments.
     */
