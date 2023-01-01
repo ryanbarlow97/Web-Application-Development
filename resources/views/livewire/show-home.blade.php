@@ -18,7 +18,11 @@
               <a class="text-lg font-bold hover:text-blue-700 active:text-blue-700" href="{{ route('profile', $post->user->user_name) }}">{{ $post->user->first_name }} {{ $post->user->last_name }}</a> ‎ @‎{{$post->user->user_name}}  · @if($post->created_at->diffInDays(now()) < 2) {{ $post->created_at->diffForHumans() }} @else {{$post->created_at->toFormattedDateString()}} @endif
             </div>
             <!-- Use the card-text class to style the post content -->
-            <p class="card-text ml-16 py-2 text-base break-normal">{{ $post->content }}</p>
+            <p class="card-text py-2 text-base break-normal">{{ $post->content }}</p>
+
+            @if($post->image != null)
+              <img class="flex max-h-96	rounded-xl mb-2 shadow-xl" src="{{asset('storage/'.$post->image->path)}}">
+            @endif
             <div class="items-center pb-4">
               <livewire:upvote :likeableType="'App\\Models\\Post'" :likeableId="$post->id" :wire:key="'post-like-' . $post->id" />
             </div> 
