@@ -25,7 +25,7 @@ class Post extends Model {
 
     
     public function image() {
-        return $this->hasOne(Image::class, 'image_id');
+        return $this->hasOne(Image::class);
     }
 
     /**
