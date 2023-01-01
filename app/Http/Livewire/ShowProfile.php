@@ -21,6 +21,11 @@ class ShowProfile extends Component
         $this->section = $section;
     }
 
+    public function goToPost($postId)
+    {
+        return redirect()->route('post', $postId);
+    }
+
     public function render()
     {
         return view('livewire.show-profile', [
