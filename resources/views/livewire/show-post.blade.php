@@ -4,9 +4,9 @@
 <!-- Add the Livewire scripts --> @livewireScripts
 <!-- Use the container class to center the content -->
 <div class="container mx-auto max-w-3xl py-2">
-		<div class="card-body">
+		<div class="card-body py-1 w-full rounded-xl text-left">
 			<!-- Use the flex class to align the elements horizontally -->
-			<div class="px-5 pt-5 flex rounded-t-xl shadow-xl bg-white" data-post-id="{{ $post->id }}">
+			<div class="px-5 pt-5 flex rounded-t-xl bg-white shadow-xl" data-post-id="{{ $post->id }}">
 				<div>
 					<div class="flex items-center">
 						<img class="w-12 h-12 rounded-full mr-4 max-w-4xl" src="{{ $post->user->profile_picture}}">
@@ -14,9 +14,16 @@
 					</div>
 					<!-- Use the card-text class to style the post content -->
 					<p class="card-text py-2 text-base break-normal">{{ $post->content }}</p>
+
+					@if($post->image != null)
+					<img class="flex mx-auto rounded-xl mb-2 shadow-xl" src="{{asset('storage/'.$post->image->path)}}">
+					@endif
+
 					<div class="flex items-center">
 						<livewire:upvote :likeableType="'App\\Models\\Post'" :likeableId="$post->id" :wire:key="'post-like-' . $post->id" />
 					</div> 
+					@if($post->image != null)
+					@endif
 					@if(Auth::check() && Auth::user()->id == $post->user->id) 
 					<div class="flex">
 						<livewire:post-edit :postId="$post->id" :wire:key="'post-edit-' . $post->id" />
