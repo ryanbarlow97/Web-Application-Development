@@ -35,8 +35,8 @@ class PostCreate extends Component
 
         if ($this->photo)
         {
-            $path = $this->photo->store('posts');
-
+            $path = $this->photo->store('public/posts');
+            $path = substr($path, 7);
             
 
             $post = Post::create([
