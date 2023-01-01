@@ -197,6 +197,10 @@ return [
 
         Livewire\LivewireServiceProvider::class,
 
+        // Push Notifications
+        //Pusher\Laravel\PusherServiceProvider::class
+
+
     ],
 
     /*
@@ -211,7 +215,8 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
-    ])->toArray(),
+        //'Pusher' => Pusher\Laravel\Facades\Pusher::class
+        ])->toArray(),
+    
 
 ];

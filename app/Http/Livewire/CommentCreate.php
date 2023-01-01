@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\CommentNotification;
+
 
 class CommentCreate extends Component
 {
@@ -37,7 +39,13 @@ class CommentCreate extends Component
 
         $this->emit('newComment');
 
+        // Retrieve the post that the comment was made on
+        $post = Post::find($this->post_id);
 
+        // If the comment was made by a different user than the post's author, send a notification to the post's author
+        if ($post->user_id != $this->user_id) {
+            $post->user->notify(new CommentNotification($post, auth()->user(), $comment));
+        }
     }
     public function render()
     {

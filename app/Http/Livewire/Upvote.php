@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Notifications\LikeNotification;
 
 class Upvote extends Component
 {
@@ -50,6 +51,9 @@ class Upvote extends Component
         $likeable->upvote(auth()->user());
         $this->upvoted = true;
         $this->likes = $likeable->likes();
+        if ($likeable->user_id != auth()->user()->id) {
+            $likeable->user->notify(new LikeNotification($likeable, auth()->user()));
+        }
     }
 
     public function unupvote()

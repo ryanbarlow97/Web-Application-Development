@@ -22,9 +22,10 @@ Route::get('/home', App\Http\Livewire\ShowHome::class)
     ->middleware(['auth', 'verified'])->name('home'); 
 
 
-Route::get('/notifications', function () {
-    return view('notifications');
-})->middleware(['auth', 'verified'])->name('notifications');
+//View Notifications
+Route::get('/notifications', App\Http\Livewire\ShowNotifications::class)
+    ->middleware(['auth', 'verified'])->name('notifications');
+
 
 //View Profile ID
 Route::get('/profile/@{user_name}', App\Http\Livewire\ShowProfile::class)
