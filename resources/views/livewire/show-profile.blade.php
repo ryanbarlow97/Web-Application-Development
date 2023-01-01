@@ -29,81 +29,97 @@
   </div>
 </div>
 <!-- Use Tailwind classes to style the table and center it on the page -->
-<table class="table-auto bg-white shadow-md rounded-md mt-6 mx-auto" wire:poll.2s>
+<div class="container mx-auto max-w-3xl py-2" wire:poll.2s>
   <tbody>
   @if($section === 'posts')
-  @foreach ($user->posts()->get()->sortBy('created_at')->reverse() as $posts)
-        <tr class="border-b border-gray-200">
-          <td class="px-6 py-4 text-left">
-            <a href="{{route('profile', ['user_name' => $posts->user->user_name])}}">
-              <!-- Use Tailwind classes to style the profile picture -->
-              <img class="w-12 h-12 rounded-full" src="{{ $posts->user->profile_picture}}">
-            </a>
-          </td>
-          <td class="px-6 py-4 text-left max-w-3xl text-base leading-5 font-medium text-gray-900">
-            <!-- Wrap the content in a div and use the whitespace-pre-line utility class to force text to go into separate lines -->
-            <h4 class="text-left text-xs">{{ $user->first_name }} {{ $user->last_name }} wrote a <a class="text-blue-700" href="{{route('post', ['id' => $posts->id])}}"> post</a> {{ $posts->created_at->diffForHumans() }}.</h4>
-            <div class="whitespace-pre-line py-2 text-base text-black-500">{{ $posts->content }}</div>
-            <livewire:upvote :likeableType="'App\\Models\\Post'" :likeableId="$posts->id" :wire:key="'post-like-' . $posts->id"/>
-          </td>
-        </tr>
+  @foreach ($user->posts()->get()->sortBy('created_at')->reverse() as $post)
+  <button class="card-body py-1 w-full rounded-xl text-left" data-post-id="{{ $post->id }}" wire:click.stop="goToPost({{ $post->id }})">
+        <!-- Use the flex class to align the elements horizontally -->
+        <div class="px-5 pt-5 flex rounded-xl bg-white hover:bg-blue-50 active:bg-blue-50 shadow-xl " >
+          <div>
+            <div class="flex items-center">
+              <img class="w-12 h-12 rounded-full mr-4 max-w-4xl" src="{{ $post->user->profile_picture}}">
+              <a class="text-lg font-bold hover:text-blue-700 active:text-blue-700" href="{{ route('profile', $post->user->user_name) }}">{{ $post->user->first_name }} {{ $post->user->last_name }}</a> ‎ @‎{{$post->user->user_name}}  · @if($post->created_at->diffInDays(now()) < 2) {{ $post->created_at->diffForHumans() }} @else {{$post->created_at->toFormattedDateString()}} @endif
+            </div>
+            <!-- Use the card-text class to style the post content -->
+            <p class="card-text py-2 text-base break-normal">{{ $post->content }}</p>
+
+            @if($post->image != null)
+              <img class="flex max-h-96	rounded-xl mb-2 shadow-xl" src="{{asset('storage/'.$post->image->path)}}">
+            @endif
+            <div class="items-center pb-4">
+              <livewire:upvote :likeableType="'App\\Models\\Post'" :likeableId="$post->id" :wire:key="'post-like-' . $post->id" />
+            </div> 
+          </div>
+        </div>
+		  </button>
       @endforeach
   @endif
   @if($section === 'comments')
       @foreach ($user->comments()->get()->sortBy('created_at')->reverse() as $comments)
-      
-        <tr class="border-b border-gray-200">
-          <td class="px-6 py-4 text-left">
-            <a href="{{route('profile', ['user_name' => $comments->user->user_name])}}">
-              <!-- Use Tailwind classes to style the profile picture -->
-              <img class="w-12 h-12 rounded-full" src="{{ $comments->user->profile_picture}}">
-            </a>
-          </td>
-          <td class="px-6 py-4 text-left max-w-3xl text-base leading-5 font-medium text-gray-900">
-            <!-- Wrap the content in a div and use the whitespace-pre-line utility class to force text to go into separate lines -->
-            <h4 class="text-left text-xs">{{ $user->first_name }} {{ $user->last_name }} wrote a comment on <a class="text-blue-700" href="{{route('profile', ['user_name' => $comments->post->user->user_name])}}">{{ $comments->post->user->first_name }} {{ $comments->post->user->last_name }}'s</a> <a class="text-blue-700" href="{{route('post', ['id' => $comments->post->id])}}">post</a> {{ $comments->created_at->diffForHumans() }}.</h4>
-            <div class="whitespace-pre-line py-2 text-base text-black-500">{{ $comments->content }}</div>
-            <livewire:upvote :likeableType="'App\\Models\\Comment'" :likeableId="$comments->id" :wire:key="'comments-like-' . $comments->id"/>
-          </td>
-        </tr>
+      <button class="card-body py-1 w-full rounded-xl text-left" data-comment-id="{{ $comments->id }}" wire:click.stop="goToPost({{ $comments->post->id }})">
+        <!-- Use the flex class to align the elements horizontally -->
+        <div class="px-5 pt-5 flex rounded-xl bg-white hover:bg-blue-50 active:bg-blue-50 shadow-xl " >
+          <div>
+            <div class="flex items-center">
+              <img class="w-12 h-12 rounded-full mr-4 max-w-4xl" src="{{ $comments->user->profile_picture}}">
+              <a class="text-lg font-bold hover:text-blue-700 active:text-blue-700" href="{{ route('profile', $comments->user->user_name) }}">{{ $comments->user->first_name }} {{ $comments->user->last_name }}</a> ‎ @‎{{$comments->user->user_name}}  · @if($comments->created_at->diffInDays(now()) < 2) {{ $comments->created_at->diffForHumans() }} @else {{$comments->created_at->toFormattedDateString()}} @endif
+            </div>
+            <!-- Use the card-text class to style the post content -->
+            <p class="card-text py-2 text-base break-normal">{{ $comments->content }}</p>
+
+            <div class="items-center pb-4">
+              <livewire:upvote :likeableType="'App\\Models\\Comment'" :likeableId="$comments->id" :wire:key="'comment-like-' . $comments->id" />
+            </div> 
+          </div>
+        </div>
+		  </button>
       @endforeach
   @endif
   @if($section === 'liked_posts')
       @foreach ($user->likedPosts()->get()->sortBy('created_at')->reverse() as $likedPosts)
-        <tr class="border-b border-gray-200">
-          <td class="px-6 py-4 text-left">
-            <a href="{{route('profile', ['user_name' => $likedPosts->user->user_name])}}">
-              <!-- Use Tailwind classes to style the profile picture -->
-              <img class="w-12 h-12 rounded-full" src="{{ $likedPosts->user->profile_picture}}">
-            </a>
-          </td>
-          <td class="px-6 py-4 text-left max-w-3xl text-base leading-5 font-medium text-gray-900">
-            <!-- Wrap the content in a div and use the whitespace-pre-line utility class to force text to go into separate lines -->
-            <h4 class="text-left text-xs">{{ $user->first_name }} {{ $user->last_name }} liked a <a class="text-blue-700" href="{{route('post', ['id' => $likedPosts->id])}}">post</a> by <a class="text-blue-700" href="{{route('profile', ['user_name' => $likedPosts->user->user_name])}}">{{ $likedPosts->user->first_name }} {{ $likedPosts->user->last_name }}</a> made {{ $likedPosts->created_at->diffForHumans() }}.</h4>
-            <div class="whitespace-pre-line py-2 text-base text-black-500">{{ $likedPosts->content }}</div>
-            <livewire:upvote :likeableType="'App\\Models\\Post'" :likeableId="$likedPosts->id" :wire:key="'post-like-' . $likedPosts->id"/>
 
-          </td>
-        </tr>
+      <button class="card-body py-1 w-full rounded-xl text-left" data-post-id="{{ $likedPosts->id }}" wire:click.stop="goToPost({{ $likedPosts->id }})">
+        <!-- Use the flex class to align the elements horizontally -->
+        <div class="px-5 pt-5 flex rounded-xl bg-white hover:bg-blue-50 active:bg-blue-50 shadow-xl " >
+          <div>
+            <div class="flex items-center">
+              <img class="w-12 h-12 rounded-full mr-4 max-w-4xl" src="{{ $likedPosts->user->profile_picture}}">
+              <a class="text-lg font-bold hover:text-blue-700 active:text-blue-700" href="{{ route('profile', $likedPosts->user->user_name) }}">{{ $likedPosts->user->first_name }} {{ $likedPosts->user->last_name }}</a> ‎ @‎{{$likedPosts->user->user_name}}  · @if($likedPosts->created_at->diffInDays(now()) < 2) {{ $likedPosts->created_at->diffForHumans() }} @else {{$likedPosts->created_at->toFormattedDateString()}} @endif
+            </div>
+            <!-- Use the card-text class to style the post content -->
+            <p class="card-text py-2 text-base break-normal">{{ $likedPosts->content }}</p>
+            
+            @if($likedPosts->image != null)
+              <img class="flex max-h-96	rounded-xl mb-2 shadow-xl" src="{{asset('storage/'.$likedPosts->image->path)}}">
+            @endif
+
+            <div class="items-center pb-4">
+              <livewire:upvote :likeableType="'App\\Models\\Post'" :likeableId="$likedPosts->id" :wire:key="'post-like-' . $likedPosts->id" />
+            </div> 
+          </div>
+        </div>
+		  </button>
       @endforeach
   @endif
   @if($section === 'liked_comments')
   @foreach ($user->likedComments()->get()->sortBy('created_at')->reverse() as $likedComments)
-        <tr class="border-b border-gray-200">
-          <td class="px-6 py-4 text-left">
-            <a href="{{route('profile', ['user_name' => $likedComments->post->user->user_name])}}">
-              <!-- Use Tailwind classes to style the profile picture -->
-              <img class="w-12 h-12 rounded-full" src="{{ $likedComments->user->profile_picture}}">
-            </a>
-          </td>
-          <td class="px-6 py-4 text-left max-w-3xl text-base leading-5 font-medium text-gray-900">
-            <!-- Wrap the content in a div and use the whitespace-pre-line utility class to force text to go into separate lines -->
-            <h4 class="text-left text-xs">{{ $user->first_name }} {{ $user->last_name }} liked a comment by <a class="text-blue-700" href="{{route('profile', ['user_name' => $likedComments->post->user->user_name])}}">{{ $likedComments->user->first_name }} {{ $likedComments->user->last_name }}</a> on <a class="text-blue-700" href="{{route('profile', ['user_name' => $likedComments->post->user->user_name])}}">{{ $likedComments->post->user->first_name }} {{ $likedComments->post->user->last_name }}'s</a> <a class="text-blue-700" href="{{route('post', ['id' => $likedComments->post->id])}}">post</a> made {{ $likedComments->created_at->diffForHumans() }}.</h4>
-            <div class="whitespace-pre-line py-2 text-base text-black-500">{{ $likedComments->content }}</div>
-            <livewire:upvote :likeableType="'App\\Models\\Comment'" :likeableId="$likedComments->id" :wire:key="'comment-like-' . $likedComments->id"/>
-
-          </td>
-        </tr>
+  <button class="card-body py-1 w-full rounded-xl text-left" data-comment-id="{{ $likedComments->id }}" wire:click.stop="goToPost({{ $likedComments->post->id }})">
+        <!-- Use the flex class to align the elements horizontally -->
+        <div class="px-5 pt-5 flex rounded-xl bg-white hover:bg-blue-50 active:bg-blue-50 shadow-xl " >
+          <div>
+            <div class="flex items-center">
+              <img class="w-12 h-12 rounded-full mr-4 max-w-4xl" src="{{ $likedComments->user->profile_picture}}">
+              <a class="text-lg font-bold hover:text-blue-700 active:text-blue-700" href="{{ route('profile', $likedComments->user->user_name) }}">{{ $likedComments->user->first_name }} {{ $likedComments->user->last_name }}</a> ‎ @‎{{$likedComments->user->user_name}}  · @if($likedComments->created_at->diffInDays(now()) < 2) {{ $likedComments->created_at->diffForHumans() }} @else {{$likedComments->created_at->toFormattedDateString()}} @endif
+            </div>
+            <!-- Use the card-text class to style the post content -->
+            <p class="card-text py-2 text-base break-normal">{{ $likedComments->content }}</p>
+            <div class="items-center pb-4">
+              <livewire:upvote :likeableType="'App\\Models\\Comment'" :likeableId="$likedComments->id" :wire:key="'comment-like-' . $likedComments->id" />
+            </div> 
+          </div>
+        </div>
+		  </button>
       @endforeach
   @endif
   </tbody>
