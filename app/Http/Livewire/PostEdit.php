@@ -4,54 +4,76 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Post;
+use Illuminate\Support\Str;
+
 
 class PostEdit extends Component
 {
+    // properties to hold the comment data
     public $postId;
-    public $editMode = 'savePost';
-    public $content;
-    public $listeners = ['editPost'];
+    public $origContent;
+    public $newContent;
 
-    public function mount($postId)
+    // validation rules
+    protected $rules = [
+        'newContent' => 'required|string|max:100'
+    ];
+
+    /**
+     * Initialize the component by setting the post data and
+     * re-initializing the component state.
+     * 
+     * @param Post $post
+     * @return void
+     */
+    public function mount(Post $post)
     {
- 
-        $this->postId = $postId;
-        $post = Post::find($postId);
-        $this->content = $post->content;
+        $this->postId = $post->id;
+        $this->origContent = $post->content;
+
+        $this->init($post);
     }
 
-    public function setEdit()
+    /**
+     * Save the edited comment to the database.
+     * 
+     * @return void
+     */
+    public function save()
     {
-        $this->editMode = 'editPost';
-        $this->emit('editingPost', $this->postId);
-    }
+        // validate form input
+        $this->validate();
 
-    public function setSave()
-    {
-        $this->editMode = 'savePost';
-        $this->emit('savedPost', $this->postId);
-    }
+        $post = Post::findOrFail($this->postId);
 
-    public function editPost($content)
-    {
-        $this->content = $content['content'];
+        // trim whitespace and limit to 100 characters
+        $newContent = (string)Str::of($this->newContent)->trim()->substr(0, 100);
 
-        $this->validate([
-            'content' => 'required'
-            
-        ]);
-
-        $post = Post::find($this->postId);
-        $post->content = $this->content;
+        $post->content = $newContent ?? null;
         $post->save();
 
-        $this->emit('postEdited', $this->postId);
+        $this->init($post); // re-initialize the component state with fresh data after saving
+    }
 
-
+    /**
+     * Initialize the component state with fresh post data.
+     * 
+     * @param Post $post
+     * @return void
+     */
+    private function init(Post $post)
+    {
+        $this->origContent = $post->content;
+        $this->newContent = $this->origContent;
     }
     
+    /**
+     * Render the component view.
+     * 
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
-        return view('livewire.post-edit');
+        return view('livewire.comment-edit');
     }
 }

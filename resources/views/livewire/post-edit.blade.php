@@ -1,34 +1,13 @@
-<div>
-    <!-- Use a button element to display the delete button -->
-    <button class="mr-2 text-xs pb-1" wire:click="{{ $editMode!='editPost' ? 'setEdit' : 'setSave'}}">
-        {{ $editMode!='editPost' ? 'Edit' : 'Save' }}
-    </button>
-    
-    <script>
-    window.livewire.on('editingPost', postId => {
-        const parentElement = document.querySelector(`[data-post-edit-id="post-edit-${postId}"]`);
-        // Create an edit box using JavaScript
-        const editBox = document.createElement('input');
-        editBox.type = 'text';
-        editBox.value = parentElement.innerHTML;
-        editBox.setAttribute('id', `post-edit-box-${postId}`);
-
-        // Clear the existing content of the parent element
-        parentElement.innerHTML = "";
-        parentElement.appendChild(editBox);
-    });
-
-    window.livewire.on('savedPost', postId => {
-        const parentElement = document.querySelector(`[data-post-edit-id="post-edit-${postId}"]`);
-
-        const editBox = document.querySelector(`#post-edit-box-${postId}`);
-        const content = editBox.value;
-
-        parentElement.removeChild(editBox);
-        parentElement.innerHTML = content;
-        
-        window.livewire.emit('editPost', ({content}));
-    });
-
-    </script>
+<div class="flex items-center justify-between -ml-2">
+    <div class="flex items-center justify-between w-full" x-data="{ isEditing: false, focus: function() { const textInput = this.$refs.textInput; textInput.focus(); textInput.select(); } }" x-cloak>
+        <div class="p-2" x-show="!isEditing">
+            <span class="border-b border-dashed border-gray-500" x-on:click="isEditing = true; $nextTick(() => focus())">{{ $origContent }}</span>
+        </div>
+        <div x-show="isEditing" class="flex flex-col w-full">
+            <form class="flex pt-2" wire:submit.prevent="save">
+                <input type="text" class="px-2 border border-gray-400 w-full rounded-lg" placeholder="100 characters max." x-ref="textInput" wire:model.lazy="newContent" x-on:keydown.enter="isEditing = false" x-on:keydown.escape="isEditing = false">
+            </form>
+            <small class="text-xs ml-2 mb-2">Press enter to save or esc to cancel.</small>
+        </div>
+    </div>
 </div>
