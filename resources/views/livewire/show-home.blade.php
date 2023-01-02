@@ -4,11 +4,11 @@
   <!-- Add the Livewire scripts --> 
   @livewireScripts
   <!-- Use the container class to center the content -->
-  <div class="container mx-auto max-w-3xl py-2">
+  <div class="container mx-auto max-w-3xl py-2" wire:poll.2s>
     <div data-submit-id="submit-post" class="pb-1">
       <livewire:post-create />
     </div>
-    @foreach (\App\Models\Post::all()->sortBy('created_at')->reverse() as $post)
+    @forelse (\App\Models\Post::orderBy('created_at', 'desc')->paginate(20) as $post)
       <button class="card-body py-1 w-full rounded-xl text-left" data-post-id="{{ $post->id }}" wire:click.stop="goToPost({{ $post->id }})">
         <!-- Use the flex class to align the elements horizontally -->
         <div class="px-5 pt-5 flex rounded-xl bg-white hover:bg-blue-50 active:bg-blue-50 shadow-xl " >
@@ -29,6 +29,10 @@
           </div>
         </div>
 		  </button>
-    @endforeach
+      @empty
+        <!-- Display a message if there are no posts to display -->
+        <p>There are no posts to display</p>
+    @endforelse
+    {{ \App\Models\Post::orderBy('created_at', 'desc')->paginate(20)->links() }}
 	</div>
 </div>
