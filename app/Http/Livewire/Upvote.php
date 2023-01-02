@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Notifications\LikeNotification;
+use Illuminate\Support\Facades\DB;
 
 class Upvote extends Component
 {
@@ -76,6 +77,19 @@ class Upvote extends Component
         $likeable->unupvote(auth()->user());
         $this->upvoted = false;
         $this->likes = $likeable->likes();
+
+        if($this->likeableType == "App\Models\Post")
+        {
+            DB::table('notifications')
+                ->where('data->type', 'likepost')
+                ->where('data->post_id', $likeable->id)
+                ->delete();
+        } else {
+            DB::table('notifications')
+                ->where('data->type', 'likecomment')
+                ->where('data->comment_id', $likeable->id)
+                ->delete();
+        }
     }
 
     public function render()

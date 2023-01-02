@@ -8,19 +8,10 @@ use App\Models\Notification;
 class ShowNotifications extends Component
 {
  
-    public function goToPost($notificationId)
+    public function goToPost($postId)
     {
-
-        // Retrieve the notification from the database
-        $notification = auth()->user()->notifications()->find($notificationId);
-    
-        // Update the read_at field with the current time
-        $notification->update(['read_at' => now()]);
-    
-        // Redirect to the post or comment page
-        return redirect(route('post', $notification->data['post_id']));
+        return redirect()->route('post', $postId);
     }
-    
 
     public function refresh()
     {

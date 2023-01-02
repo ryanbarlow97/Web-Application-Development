@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Post;
+use Illuminate\Support\Facades\DB;
 
 
 class PostDelete extends Component
@@ -21,7 +22,21 @@ class PostDelete extends Component
         $post = Post::find($this->postId);
         $post->delete();
 
-        return redirect()->to('/home');
+        DB::table('notifications')
+        ->where('data->type', 'post')
+        ->where('data->post_id', $this->postId)
+        ->delete();
+
+        DB::table('notifications')
+        ->where('data->type', 'comment')
+        ->where('data->post_id', $this->postId)
+        ->delete();
+
+
+        //return redirect()->to('/home');
+
+        $this->emit('redirect', '/home');
+
     }
 
     public function render()

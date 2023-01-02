@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Comment;
+use Illuminate\Support\Facades\DB;
 
 class CommentDelete extends Component
 {
@@ -19,6 +20,11 @@ class CommentDelete extends Component
     {
         $comment = Comment::find($this->commentId);
         $comment->delete();
+
+        DB::table('notifications')
+        ->where('data->type', 'comment')
+        ->where('data->content_id', $this->commentId)
+        ->delete();
 
         $this->emit('commentDeleted', $this->commentId);
     }

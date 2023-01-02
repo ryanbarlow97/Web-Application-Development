@@ -38,20 +38,20 @@ class LikeNotification extends Notification implements ShouldQueue
         $userName = (Auth::user()->id == $this->interactable->user->id) ? "you" : $this->user->first_name;
 
         // Initialize variables
-        $contentId = null;
+        $commentId = null;
         $action = null;
 
         // Determine the type of the interactable item (post or comment) and the appropriate action string
         switch (get_class($this->interactable)) {
             case 'App\Models\Post':
-                $type = "post";
+                $type = "likepost";
                 $postId = $this->interactable->id;
                 $action = "Your post was liked by ";
                 break;
             case 'App\Models\Comment':
-                $type = "comment";
+                $type = "likecomment";
                 $postId =  $this->interactable->post->id;
-                $contentId = $this->interactable->id;
+                $commentId = $this->interactable->id;
                 $action = "Your comment was liked by ";
                 break;
         }
@@ -61,7 +61,7 @@ class LikeNotification extends Notification implements ShouldQueue
             return [
                 'type' => $type,
                 'post_id' => $postId,
-                'content_id' => $contentId,
+                'comment_id' => $commentId,
                 'message' => $action . $userName . "!",
             ];
         }

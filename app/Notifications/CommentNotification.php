@@ -41,7 +41,7 @@ class CommentNotification extends Notification implements ShouldQueue
 
         // Return the data to be stored in the database
         return [
-            'type' => "post",
+            'type' => "comment",
             'post_id' => $this->post->id,
             'comment_id' => $this->comment->id,
             'message' => "Your post was commented on by " . $userName . "!",
