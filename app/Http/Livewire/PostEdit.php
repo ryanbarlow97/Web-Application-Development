@@ -23,13 +23,13 @@ class PostEdit extends Component
     public function setEdit()
     {
         $this->editMode = 'editPost';
-        $this->emit('editing', $this->postId);
+        $this->emit('editingPost', $this->postId);
     }
 
     public function setSave()
     {
         $this->editMode = 'savePost';
-        $this->emit('saved', $this->postId);
+        $this->emit('savedPost', $this->postId);
     }
 
     public function editPost($content)

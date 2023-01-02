@@ -4,50 +4,66 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Comment;
+use Illuminate\Support\Str;
+
 
 class CommentEdit extends Component
 {
+    // properties to hold the comment data
     public $commentId;
-    public $editMode = 'saveComment';
-    public $content;
-    public $listeners = ['editComment'];
+    public $origContent;
+    public $newContent;
 
-    public function mount($commentId)
+    /**
+     * Initialize the component by setting the comment data and
+     * re-initializing the component state.
+     * 
+     * @param Comment $comment
+     * @return void
+     */
+    public function mount(Comment $comment)
     {
- 
-        $this->commentId = $commentId;
-        $comment = Comment::find($commentId);
-        $this->content = $comment->content;
+        $this->commentId = $comment->id;
+        $this->origContent = $comment->content;
+
+        $this->init($comment);
     }
 
-    public function setEdit()
+    /**
+     * Save the edited comment to the database.
+     * 
+     * @return void
+     */
+    public function save()
     {
-        $this->editMode = 'editComment';
-        $this->emit('editing', $this->commentId);
-    }
+        $comment = Comment::findOrFail($this->commentId);
 
-    public function setSave()
-    {
-        $this->editMode = 'saveComment';
-        $this->emit('saved', $this->commentId);
-    }
+        // trim whitespace and limit to 100 characters
+        $newContent = (string)Str::of($this->newContent)->trim()->substr(0, 100);
 
-    public function editComment($content)
-    {
-        $this->content = $content['content'];
-
-        $this->validate([
-            'content' => 'required'
-            
-        ]);
-
-        $comment = Comment::find($this->commentId);
-        $comment->content = $this->content;
+        $comment->content = $newContent ?? null;
         $comment->save();
 
-        $this->emit('commentEdited', $this->commentId);
+        $this->init($comment); // re-initialize the component state with fresh data after saving
+    }
+
+    /**
+     * Initialize the component state with fresh comment data.
+     * 
+     * @param Comment $comment
+     * @return void
+     */
+    private function init(Comment $comment)
+    {
+        $this->origContent = $comment->content;
+        $this->newContent = $this->origContent;
     }
     
+    /**
+     * Render the component view.
+     * 
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
         return view('livewire.comment-edit');

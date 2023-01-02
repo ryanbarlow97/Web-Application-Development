@@ -16,19 +16,27 @@
 						<!-- Use the small class to style the comment timestamp -->
 					</h5>
 					<!-- Use the card-text class to style the comment content -->
-					<p class="card-text py-2 text-base break-words" data-comment-edit-id="{{$comment->id }}">{{ $comment->content }}</p>
-					<div>
-						<div class="items-center" >
-							<livewire:upvote :likeableType="'App\\Models\\Comment'" :likeableId="$comment->id" :wire:key="'comment-like-' . $comment->id" />
+					@if(Auth::check() && Auth::user()->id == $comment->user_id)
+						<div class="items-center">
+							@livewire('comment-edit', compact('comment'), key($comment->id))
 						</div>
-						@if(Auth::check() && Auth::user()->id == $comment->user_id)
-						<livewire:comment-edit :commentId="$comment->id" :wire:key="'comment-edit-' . $comment->id" />
+					@endif
 
+					@if(Auth::check() && Auth::user()->id != $comment->user_id)
+						<div class="items-center">
+							<p class="card-text py-2 text-base break-words" data-comment-edit-id="{{$comment->id }}">{{ $comment->content }}</p>
+						</div>
+					@endif
+					
+					<div class="items-center">
+						<livewire:upvote :likeableType="'App\\Models\\Comment'" :likeableId="$comment->id" :wire:key="'comment-like-' . $comment->id" />
+					</div>
+
+					@if(Auth::check() && Auth::user()->id == $comment->user_id)
 						<div class="items-center">
 							<livewire:comment-delete :commentId="$comment->id" :wire:key="'comment-delete-' . $comment->id" />
 						</div>
-						@endif
-					</div>
+					@endif
 				</div>
 			</div>
 		</li>

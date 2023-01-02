@@ -5,9 +5,8 @@
     </button>
     
     <script>
-    window.livewire.on('editing', postId => {
+    window.livewire.on('editingPost', postId => {
         const parentElement = document.querySelector(`[data-post-edit-id="post-edit-${postId}"]`);
-        console.log(parentElement);
         // Create an edit box using JavaScript
         const editBox = document.createElement('input');
         editBox.type = 'text';
@@ -19,7 +18,7 @@
         parentElement.appendChild(editBox);
     });
 
-    window.livewire.on('saved', postId => {
+    window.livewire.on('savedPost', postId => {
         const parentElement = document.querySelector(`[data-post-edit-id="post-edit-${postId}"]`);
 
         const editBox = document.querySelector(`#post-edit-box-${postId}`);
