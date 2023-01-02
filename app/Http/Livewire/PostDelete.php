@@ -32,10 +32,17 @@ class PostDelete extends Component
         ->where('data->post_id', $this->postId)
         ->delete();
 
+        DB::table('notifications')
+        ->where('data->type', 'likecomment')
+        ->where('data->post_id', $this->postId)
+        ->delete();
 
-        //return redirect()->to('/home');
+        DB::table('notifications')
+        ->where('data->type', 'likepost')
+        ->where('data->post_id', $this->postId)
+        ->delete();
 
-        $this->emit('redirect', '/home');
+        return redirect()->to('/home');
 
     }
 
