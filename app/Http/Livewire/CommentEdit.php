@@ -14,6 +14,11 @@ class CommentEdit extends Component
     public $origContent;
     public $newContent;
 
+    // validation rules
+    protected $rules = [
+        'newContent' => 'required|string|max:100'
+    ];
+
     /**
      * Initialize the component by setting the comment data and
      * re-initializing the component state.
@@ -36,6 +41,9 @@ class CommentEdit extends Component
      */
     public function save()
     {
+        // validate form input
+        $this->validate();
+
         $comment = Comment::findOrFail($this->commentId);
 
         // trim whitespace and limit to 100 characters
