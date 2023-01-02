@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
 <!-- Add the Livewire scripts --> @livewireScripts
 <!-- Use the container class to center the content -->
-	<div class="container mx-auto max-w-3xl py-2" wire:poll.1s>
+	<div class="container mx-auto max-w-3xl py-2" wire:poll.5s>
 		<div class="card-body py-1 w-full rounded-xl text-left">
 			<!-- Use the flex class to align the elements horizontally -->
 			<div class="px-5 pt-5 flex rounded-t-xl bg-white shadow-xl" data-post-id="{{ $post->id }}">
@@ -44,10 +44,3 @@
 		<livewire:show-comments :post="$post" />
 	</div>
 </div>
-
-<script>
-	window.Livewire.on('redirect', url => {
-        // redirect the user to the specified URL
-        window.location.href = url;
-    });
-</script>

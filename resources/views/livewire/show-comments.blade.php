@@ -1,6 +1,6 @@
 <div>
 	<!-- Use the list-group class to style the comments -->
-	<ul class="card" wire:poll.1s>
+	<ul class="card" wire:poll.5s>
 		@foreach ($post->comments()->orderBy('created_at', 'asc')->get() as $comment)
 		<!-- Use the list-group-item class to style each comment -->
 		<li class="card-body pt-2">
