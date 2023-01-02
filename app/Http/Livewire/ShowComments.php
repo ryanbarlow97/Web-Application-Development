@@ -18,6 +18,7 @@ class ShowComments extends Component
     {
         $this->post = Post::findOrFail($post->id);
         $this->comments = $this->post->comments;
+
     }
 
     public function refresh()
