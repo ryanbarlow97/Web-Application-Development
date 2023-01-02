@@ -9,22 +9,33 @@ class PostEdit extends Component
 {
     public $postId;
     public $editMode = 'savePost';
-
+    public $content;
+    public $listeners = ['editPost'];
 
     public function mount($postId)
     {
+ 
         $this->postId = $postId;
         $post = Post::find($postId);
         $this->content = $post->content;
     }
 
-    public function setMode($editMode)
+    public function setEdit()
     {
-        $this->editMode = $editMode;
+        $this->editMode = 'editPost';
+        $this->emit('editing', $this->postId);
     }
 
-    public function editPost()
+    public function setSave()
     {
+        $this->editMode = 'savePost';
+        $this->emit('saved', $this->postId);
+    }
+
+    public function editPost($content)
+    {
+        $this->content = $content['content'];
+
         $this->validate([
             'content' => 'required'
             

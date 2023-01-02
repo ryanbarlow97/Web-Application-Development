@@ -13,7 +13,11 @@ class ShowPost extends Component
     public function mount($id)
     {
         $this->post = Post::findOrFail($id);
-
+        
+        if (! $this->post) {
+            // post was not found, redirect the user to the home page
+            return $this->redirect('/home');
+        }
     }
 
     public function render()

@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
 <!-- Add the Livewire scripts --> @livewireScripts
 <!-- Use the container class to center the content -->
-<div class="container mx-auto max-w-3xl py-2">
+	<div class="container mx-auto max-w-3xl py-2">
 		<div class="card-body py-1 w-full rounded-xl text-left">
 			<!-- Use the flex class to align the elements horizontally -->
 			<div class="px-5 pt-5 flex rounded-t-xl bg-white shadow-xl" data-post-id="{{ $post->id }}">
@@ -13,7 +13,7 @@
 						<a class="text-lg font-bold hover:text-blue-700 active:text-blue-700" href="{{ route('profile', $post->user->user_name) }}">{{ $post->user->first_name }} {{ $post->user->last_name }}</a> ‎ @‎{{$post->user->user_name}}  · @if($post->created_at->diffInDays(now()) < 2) {{ $post->created_at->diffForHumans() }} @else {{$post->created_at->toFormattedDateString()}} @endif
 					</div>
 					<!-- Use the card-text class to style the post content -->
-					<p class="card-text py-2 text-base break-normal">{{ $post->content }}</p>
+					<p class="card-text py-2 text-base break-normal" data-post-edit-id="{{'post-edit-' . $post->id }}">{{ $post->content }}</p>
 
 					@if($post->image != null)
 					<img class="flex mx-auto rounded-xl mb-2 shadow-xl" src="{{asset('storage/'.$post->image->path)}}">
@@ -37,3 +37,10 @@
 		<livewire:show-comments :post="$post" />
 	</div>
 </div>
+
+<script>
+	window.Livewire.on('redirect', url => {
+        // redirect the user to the specified URL
+        window.location.href = url;
+    });
+</script>
