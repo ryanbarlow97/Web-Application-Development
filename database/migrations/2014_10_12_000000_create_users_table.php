@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->date('date_of_birth');
             //unique email
             $table->string('email')->unique();
+            $table->string('priority')->default('0');
             //string to support +44
             #$table->string('mobile')->unique();
             $table->string('profile_picture')->default('profile-picture/default_profile_picture.png');
