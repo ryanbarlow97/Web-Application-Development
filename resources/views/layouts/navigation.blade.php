@@ -11,7 +11,7 @@
                     <x-nav-link :href="route('notifications')" :active="request()->routeIs('notifications')">
                         {{ __('Notifications') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('profile', ['user_name' => Auth::user()->user_name])" :active="request()->routeIs('profile')">
+                    <x-nav-link :href="route('profile', ['user_name' => Auth::user()->user_name])" :active="request()->routeIs('profile')&& request()->route('user_name') == Auth::user()->user_name">
                         {{ __('My Profile') }}
                     </x-nav-link>
                 </div>
