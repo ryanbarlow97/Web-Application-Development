@@ -12,18 +12,13 @@ class ShowComments extends Component
     public $post;
     public $comments = [];
     public $comment;
-    public $listeners = ['newComment' => 'refresh'];
+    public $listeners = ['newComment' => 'render'];
 
     public function mount($post)
     {
         $this->post = Post::findOrFail($post->id);
         $this->comments = $this->post->comments;
 
-    }
-
-    public function refresh()
-    {
-        return;
     }
 
     public function render()
