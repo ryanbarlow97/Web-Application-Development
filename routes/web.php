@@ -21,11 +21,13 @@ Route::get('/', function () {
 Route::get('/home', App\Http\Livewire\ShowHome::class)
     ->middleware(['auth', 'verified'])->name('home'); 
 
-
 //View Notifications
 Route::get('/notifications', App\Http\Livewire\ShowNotifications::class)
     ->middleware(['auth', 'verified'])->name('notifications');
 
+//View Profile ID
+Route::get('/profile/@{user_name}', App\Http\Livewire\ShowProfile::class)
+    ->middleware(['auth', 'verified'])->name('profile');
 
 //View Profile ID
 Route::get('/profile/@{user_name}', App\Http\Livewire\ShowProfile::class)
@@ -33,7 +35,10 @@ Route::get('/profile/@{user_name}', App\Http\Livewire\ShowProfile::class)
 
 //View Post and Comments
 Route::get('/comments/{id}', App\Http\Livewire\ShowPost::class)
-    ->middleware(['auth', 'verified'])->name('post');
+->middleware(['auth', 'verified'])->name('post');
 
+//View User Settings
+Route::get('/settings', App\Http\Livewire\ShowProfileEdit::class)
+    ->middleware(['auth', 'verified'])->name('settings');
 
 require __DIR__.'/auth.php';
