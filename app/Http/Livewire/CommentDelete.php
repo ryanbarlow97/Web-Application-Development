@@ -21,6 +21,7 @@ class CommentDelete extends Component
         $comment = Comment::find($this->commentId);
         $comment->delete();
 
+        //remove the notification
         DB::table('notifications')
         ->where('data->type', 'comment')
         ->where('data->content_id', $this->commentId)
