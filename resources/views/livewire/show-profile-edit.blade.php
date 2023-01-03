@@ -40,34 +40,6 @@
             <br>
             <div class="text-gray-800 text-md"> 
                 <div class="float-left">
-                    Change Email
-                    <div class="text-xs text-gray-500">
-                        {{auth()->user()->email}}
-                    </div>
-                </div>
-            </div>
-            <div class="text-gray-800 text-md float-right"> 
-                <button class="bg-blue-500 rounded-xl px-5 py-2 hover:bg-blue-700 active:bg-blue-700" id="change-email">
-                    Change
-                </button>
-            </div>
-            <br><br><br>
-            <div class="text-gray-800 text-md"> 
-                <div class="float-left">
-                    Change Password
-                    <div class="text-xs text-gray-500">
-                        Password must be at least 8 characters long
-                    </div>
-                </div>
-            </div>
-            <div class="text-gray-800 text-md float-right"> 
-                <button class="bg-blue-500 rounded-xl px-5 py-2 hover:bg-blue-700 active:bg-blue-700" id="change-password">
-                    Change
-                </button>
-            </div>
-            <br><br><br>
-            <div class="text-gray-800 text-md"> 
-                <div class="float-left">
                     Change Profile Picture
                     <div class="text-xs text-gray-500">
                         <img class="w-24 h-24 rounded-full" src="{{ asset('storage/'.Auth::user()->profile_picture) }}">
