@@ -4,7 +4,7 @@
   <!-- Add the Livewire scripts --> 
   @livewireScripts
   <!-- Use the container class to center the content -->
-  <div class="container mx-auto max-w-3xl py-2" wire:poll.2s>
+  <div class="container mx-auto max-w-3xl py-2" wire:poll.visible>
     <div data-submit-id="submit-post" class="pb-1">
       <livewire:post-create />
     </div>

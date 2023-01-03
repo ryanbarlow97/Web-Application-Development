@@ -2,7 +2,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
   @livewireScripts
   
-  <div class="container mx-auto max-w-md py-2" wire:poll.1s>
+  <div class="container mx-auto max-w-md py-2" wire:poll.visible>
 
     @if (auth()->user()->notifications->isEmpty())
     <div class="card-body py-1 w-full rounded-xl text-center">
