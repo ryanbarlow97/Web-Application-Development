@@ -13,7 +13,6 @@ class CommentDelete extends Component
     public function mount($commentId)
     {
         $this->commentId = $commentId;
-
     }
 
     public function deleteComment()
@@ -24,8 +23,9 @@ class CommentDelete extends Component
         //remove the notification
         DB::table('notifications')
         ->where('data->type', 'comment')
-        ->where('data->content_id', $this->commentId)
+        ->where('data->comment_id', $this->commentId)
         ->delete();
+
 
         $this->emit('commentDeleted', $this->commentId);
     }
