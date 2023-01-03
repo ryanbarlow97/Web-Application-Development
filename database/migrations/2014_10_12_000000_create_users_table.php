@@ -24,14 +24,14 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             //string to support +44
             #$table->string('mobile')->unique();
-            $table->string('profile_picture')->default(asset('/images/default_profile_picture.png'));
+            $table->string('profile_picture')->default('profile-picture/default_profile_picture.png');
             #$table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *
