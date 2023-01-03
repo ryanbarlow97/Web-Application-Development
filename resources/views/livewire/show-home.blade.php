@@ -2,13 +2,14 @@
   <!-- Include the link to the stylesheet from the CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
   <!-- Add the Livewire scripts --> 
+  
   @livewireScripts
   <!-- Use the container class to center the content -->
   <div class="container mx-auto max-w-3xl py-2" wire:poll.visible>
     <div data-submit-id="submit-post" class="pb-1">
       <livewire:post-create />
     </div>
-    @forelse (\App\Models\Post::orderBy('created_at', 'desc')->paginate(20) as $post)
+    @foreach ($posts as $post)
       <button class="card-body py-1 w-full rounded-xl text-left" data-post-id="{{ $post->id }}" wire:click.stop="goToPost({{ $post->id }})">
         <!-- Use the flex class to align the elements horizontally -->
         <div class="px-5 pt-5 flex rounded-xl bg-white hover:bg-blue-50 active:bg-blue-50 shadow-xl " >
@@ -29,10 +30,7 @@
           </div>
         </div>
 		  </button>
-      @empty
-        <!-- Display a message if there are no posts to display -->
-        <p>There are no posts to display</p>
-    @endforelse
-    {{ \App\Models\Post::orderBy('created_at', 'desc')->paginate(20)->links() }}
+      @endforeach
+    {{ $posts->links() }}
 	</div>
 </div>
