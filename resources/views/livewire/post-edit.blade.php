@@ -5,7 +5,7 @@
         </div>
         <div x-show="isEditing" class="flex flex-col w-full">
             <form class="flex pt-2" wire:submit.prevent="save">
-                <input type="text" class="px-2 border border-gray-400 w-full rounded-lg" placeholder="100 characters max." x-ref="textInput" wire:model.lazy="newContent" x-on:keydown.enter="isEditing = false" x-on:keydown.escape="isEditing = false">
+                <input type="text" class="px-2 border border-gray-400 w-full rounded-lg" placeholder="200 max characters" x-ref="textInput" wire:model.lazy="newContent" x-on:keydown.enter="isEditing = false" x-on:keydown.escape="isEditing = false">
             </form>
             <small class="text-xs ml-2 mb-2">Press enter to save or esc to cancel.</small>
         </div>

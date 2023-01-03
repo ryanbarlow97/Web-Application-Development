@@ -46,8 +46,8 @@ class PostEdit extends Component
 
         $post = Post::findOrFail($this->postId);
 
-        // trim whitespace and limit to 100 characters
-        $newContent = (string)Str::of($this->newContent)->trim()->substr(0, 100);
+        // remove whitespace and limit to 200 characters
+        $newContent = (string)Str::of($this->newContent)->trim()->substr(0, 200);
 
         $post->content = $newContent ?? null;
         $post->save();

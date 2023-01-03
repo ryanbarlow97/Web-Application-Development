@@ -46,7 +46,7 @@ class CommentEdit extends Component
 
         $comment = Comment::findOrFail($this->commentId);
 
-        // remove the whitespace and limit to 200 characters
+        // remove whitespace and limit to 200 characters
         $newContent = (string)Str::of($this->newContent)->trim()->substr(0, 200);
 
         $comment->content = $newContent ?? null;
