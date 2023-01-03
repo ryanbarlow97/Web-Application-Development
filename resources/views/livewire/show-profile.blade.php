@@ -6,6 +6,9 @@
   <div class="py-0 px-6 bg-white-200">
     <h2 class="text-xl font-semibold text-gray-800 leading-tight">
       {{ ucfirst(strtolower($user->first_name)) }} {{ ucfirst(strtolower($user->last_name)) }}
+      <div>
+        <img class="py-2 px-2 h-32 rounded-3xl" src="{{ asset('storage/'.$user->profile_picture) }}">
+      </div>
     </h2>
   </div>
 </x-slot>
