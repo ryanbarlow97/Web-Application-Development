@@ -19,8 +19,6 @@ class CommentCreate extends Component
     {
         $this->post_id = $post_id;
         $this->user_id = auth()->user()->id;
-        $this->comments = Comment::where('post_id', $post_id)->get();
-
     }
 
     public function store()
