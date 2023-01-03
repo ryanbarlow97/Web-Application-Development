@@ -13,13 +13,13 @@
 						<a class="text-lg font-bold hover:text-blue-700 active:text-blue-700" href="{{ route('profile', $post->user->user_name) }}">{{ $post->user->first_name }} {{ $post->user->last_name }}</a> ‎ @‎{{$post->user->user_name}}  · @if($post->created_at->diffInDays(now()) < 2) {{ $post->created_at->diffForHumans() }} @else {{$post->created_at->toFormattedDateString()}} @endif
 					</div>
 
-					@if(Auth::check() && Auth::user()->id == $post->user_id)
+					@if(Auth::check() && (Auth::user()->id == $post->user_id || Auth::user()->priority == 1))
 						<div class="items-center">
 							@livewire('post-edit', compact('post'), key($post->id))
 						</div>
 					@endif
 
-					@if(Auth::check() && Auth::user()->id != $post->user_id)
+					@if(Auth::check() && (Auth::user()->id != $post->user_id && Auth::user()->priority != 1))
 					<p class="card-text py-2 text-base break-normal" data-post-edit-id="{{'post-edit-' . $post->id }}">{{ $post->content }}</p>
 					@endif
 
@@ -32,7 +32,7 @@
 					</div> 
 					@if($post->image != null)
 					@endif
-					@if(Auth::check() && Auth::user()->id == $post->user->id) 
+					@if(Auth::check() && (Auth::user()->id == $post->user_id || Auth::user()->priority == 1))
 					<div class="flex">
 						<livewire:post-delete :postId="$post->id" :wire:key="'post-delete-' . $post->id" />
 					</div> 
