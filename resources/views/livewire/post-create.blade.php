@@ -15,14 +15,24 @@
                     </button>
                 </div>
                 @endif
-                <!-- File Input -->          
-                <div class="pt-2">
-                    <label for="file-input" class="btn btn-primary focus:outline-none">
-                    <img src="{{asset('/images/media.png')}}" width="30" height="30">
-                    </label>                
-                    <input id="file-input" type="file" style="display: none;" wire:model.lazy="photo" />
+                <div class="flex">
+                    <!-- File Input -->          
+                    <div class="pt-2 flex w-30 h-30 pr-2">
+                        <label for="file-input" class="btn btn-primary focus:outline-none cursor-pointer">
+                        <img src="{{asset('/images/media.png')}}" width="30" height="30">
+                        </label>               
+                        <input id="file-input" type="file" style="display: none;" wire:model.lazy="photo" />
+                    </div>
+                    @error('photo') <span class="error">{{ $message }}</span> @enderror
+
+                    <!-- Top Twitch Stream -->          
+                    <div class="pt-2 flex w-30 h-30">
+                        <label for="twitch" class="btn btn-primary focus:outline-none cursor-pointer">
+                        <img src="{{asset('/images/twitch.png')}}" width="30" height="30">
+                        </label>                
+                        <button id="twitch" wire:click.prevent="addTopTwitchVideo"></button>
+                    </div>
                 </div>
-                @error('photo') <span class="error">{{ $message }}</span> @enderror
             </div>
         </form>
     </div>

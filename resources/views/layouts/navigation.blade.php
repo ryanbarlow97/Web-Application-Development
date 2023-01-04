@@ -48,18 +48,21 @@
                         </button>
                     </x-slot>
                     <x-slot name="content">
-                        <!-- Authentication -->
-                        @csrf
-                        <x-dropdown-link :href="route('settings')">
-                            {{ __('Settings') }}
-                        </x-dropdown-link>
+                        <form method="GET" action="{{ route('settings') }}">
+                            @csrf
+                            <x-responsive-nav-link :href="route('settings')"
+                                onclick="event.preventDefault();
+                                this.closest('form').submit();">
+                                {{ __('Settings') }}
+                            </x-responsive-nav-link>
+                        </form>  
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <x-dropdown-link :href="route('logout')"
+                            <x-responsive-nav-link :href="route('logout')"
                                 onclick="event.preventDefault();
                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
-                            </x-dropdown-link>
+                            </x-responsive-nav-link>
                         </form>
                     </x-slot>
                 </x-dropdown>
@@ -87,6 +90,9 @@
             <x-responsive-nav-link :href="route('profile', ['user_name' => Auth::user()->user_name])" :active="request()->routeIs('profile')">
                 {{ __('My Profile') }}
             </x-responsive-nav-link>
+            <x-nav-link :href="route('messages')" :active="request()->routeIs('messages')">
+                {{ __('Messages') }}
+            </x-nav-link>
         </div>
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
@@ -96,7 +102,7 @@
             </div>
             <div class="mt-3 space-y-1">
                 <!-- Authentication -->
-                <form method="POST" action="{{ route('settings') }}">
+                <form method="GET" action="{{ route('settings') }}">
                     @csrf
                     <x-responsive-nav-link :href="route('settings')"
                         onclick="event.preventDefault();

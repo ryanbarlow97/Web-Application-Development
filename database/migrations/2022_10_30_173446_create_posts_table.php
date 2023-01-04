@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration {
             $table->foreignId('user_id')->references('id')->on('users')
                 ->cascadeOnDelete()->cascadeOnUpdate();
             //Content of post
-            $table->string('content');
+            $table->text('content');
             //Flair of post
             $table->string('flair');
             //Created and Updated timestamp attributes

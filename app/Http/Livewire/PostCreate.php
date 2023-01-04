@@ -61,4 +61,9 @@ class PostCreate extends Component
         $this->reset(['photo']);
         $this->photo = null;
     }
+
+    public function addTopTwitchVideo()
+    {
+        return redirect()->route('authorise');
+    }
 }
