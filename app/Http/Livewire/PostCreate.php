@@ -22,7 +22,7 @@ class PostCreate extends Component
     {
         $validatedData = $this->validate([
             'content' => 'required',
-            'photo' => ['nullable', 'image'],  // 12MB Max
+            'photo' => ['nullable', 'image', 'mimes:png,jpg,jpeg,gif', 'max:12288'],
         ]);
 
         if ($this->photo)

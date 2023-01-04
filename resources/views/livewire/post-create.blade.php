@@ -8,12 +8,17 @@
             </div>
             <div>
                 @if ($photo)
-                <div class="relative">
-                    <img class="max-h-96 mx-auto items-center rounded-xl mt-3 shadow-xl" src="{{ $photo->temporaryUrl() }}">
-                    <button class="delete-button absolute top-0 right-0 m-2 focus:outline-none" wire:click.prevent="removeImage">
-                    x
-                    </button>
-                </div>
+                    @if (strpos($photo->getMimeType(), 'image/') === 0)
+                    <div class="relative">
+                        <img class="max-h-96 mx-auto items-center rounded-xl mt-3 shadow-xl" src="{{ $photo->temporaryUrl() }}">
+                        <button class="delete-button absolute top-0 right-0 m-2 focus:outline-none" wire:click.prevent="removeImage">
+                        x
+                        </button>
+                    </div>
+                    @else
+                    Make sure the image is png/jpeg/jpg/gif.
+
+                    @endif
                 @endif
                 <div class="flex">
                     <!-- File Input -->          
