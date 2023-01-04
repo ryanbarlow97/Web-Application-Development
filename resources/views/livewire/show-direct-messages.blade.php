@@ -30,7 +30,7 @@
                                     
                                 @else
                                 <div class="flex text-left">
-                                        <img class="w-12 h-12 rounded-full" src="{{asset('/storage/'.$conversation->sender->profile_picture)}}"> 
+                                        <img class="w-12 h-12 rounded-full" src="{{asset('/storage/'.$conversation->recipient->profile_picture)}}"> 
                                         <div class="pl-3 w-full">
                                         {{$conversation->recipient->first_name}} {{$conversation->recipient->last_name}}
                                         @if(!$conversation->messages->isEmpty())
