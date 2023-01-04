@@ -41,4 +41,8 @@ Route::get('/comments/{id}', App\Http\Livewire\ShowPost::class)
 Route::get('/settings', App\Http\Livewire\ShowProfileEdit::class)
     ->middleware(['auth', 'verified'])->name('settings');
 
+//View Direct Messages
+Route::get('/messages', App\Http\Livewire\ShowDirectMessages::class)
+->middleware(['auth', 'verified'])->name('messages');
+
 require __DIR__.'/auth.php';

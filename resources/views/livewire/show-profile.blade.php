@@ -3,16 +3,21 @@
 
 <x-slot name="header">
   <!-- Use Tailwind classes to style the header -->
-  <div class="py-0 px-6 bg-white-200">
-    <h2 class="text-xl font-semibold text-gray-800 leading-tight">
+  <div class="px-5 bg-white-200">
+    <div class="text-xl font-semibold text-gray-800 leading-tight">
       {{ ucfirst(strtolower($user->first_name)) }} {{ ucfirst(strtolower($user->last_name)) }}
+    </div>
       <div>
         <img class="py-2 px-2 h-32 rounded-3xl" src="{{ asset('storage/'.$user->profile_picture) }}">
       </div>
     </h2>
   </div>
 </x-slot>
-
+<div class="px-5 bg-white-200">
+    @if (Auth::user()->user_name !== $user->user_name)
+    <button class="text-xl text-gray-800 leading-tight btn btn-primary" wire:click="createConversation">Start Messaging</button>
+    @endif
+  </div>
 <!-- Use Tailwind classes to style the nav links -->
 <div class="py-6 px-6 bg-white-200">
   <div class="flex justify-center">
