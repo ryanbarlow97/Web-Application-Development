@@ -5,4 +5,4 @@ This web application is built using Laravel, a popular PHP framework for web app
 
 In addition to Laravel, I also utilise Livewire, a full-stack framework for Laravel that allows us to build dynamic front-end components in a server-side environment. This allows for seamless real-time updates and interactions without the need for client-side JavaScript.
 
-The application features a simple social media platform with the ability to create posts, leave comments, and like posts and comments. Which also offers inline editing for both posts and comments, allowing users to easily make changes to their content.
+The application features a simple social media platform with the ability to create posts, leave comments, and like posts and comments. Which also offers inline editing for both posts and comments, allowing users to easily make changes to their content. It also supports the ability to send direct messages to other users.
