@@ -11,7 +11,7 @@
                 <!-- Use the flex class to align the elements horizontally -->
                 <ul class="rounded-xl bg-white shadow-xl">
                     @foreach ($conversations->sortBy('updated_at')->reverse() as $conversation)
-                        <button class="card-body px-2 py-2 w-full r hover:bg-blue-50 active:bg-blue-50 {{ $conversation->id == $selectedConversation->id ? 'bg-blue-50' : '' }}" wire:click.prevent="viewConversation({{ $conversation->id }})">
+                        <button class="card-body px-2 py-2 {{ $loop->first ? 'rounded-t-xl' : '' }} {{ $loop->last ? 'rounded-b-xl' : '' }} w-full hover:bg-blue-50 active:bg-blue-50 {{ $conversation->id == $selectedConversation->id ? 'bg-blue-100' : '' }}" wire:click.prevent="viewConversation({{ $conversation->id }})">
                             <!-- Use the media class to style the comment avatar and content -->
                             <div>
                                 @if ($conversation->sender_id != Auth::user()->id)
