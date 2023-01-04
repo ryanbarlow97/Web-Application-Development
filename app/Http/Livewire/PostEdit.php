@@ -16,7 +16,7 @@ class PostEdit extends Component
 
     // validation rules
     protected $rules = [
-        'newContent' => 'required|string|max:100'
+        'newContent' => 'required|text'
     ];
 
     /**
@@ -46,8 +46,8 @@ class PostEdit extends Component
 
         $post = Post::findOrFail($this->postId);
 
-        // remove whitespace and limit to 200 characters
-        $newContent = (string)Str::of($this->newContent)->trim()->substr(0, 200);
+        // remove whitespace
+        $newContent = (string)Str::of($this->newContent)->trim();
 
         $post->content = $newContent ?? null;
         $post->save();
