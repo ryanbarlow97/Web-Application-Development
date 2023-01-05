@@ -5,7 +5,7 @@
     @livewireScripts
     @if (!$conversations->isEmpty())
     <!-- Use the container class to center the content -->
-    <div class="flex flex-wrap px-2 py-2 justify-center" wire:poll.1s>
+    <div class="flex flex-wrap px-2 py-2 justify-center" wire:poll.250ms>
         <div class="container max-w-xs mr-4 w-1/2">
             <div class="card-body w-full rounded-xl text-left">
                 <!-- Use the flex class to align the elements horizontally -->
