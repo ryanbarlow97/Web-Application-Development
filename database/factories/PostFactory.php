@@ -16,7 +16,7 @@ class PostFactory extends Factory {
      * @return array<string, mixed>
      */
     public function definition() {
-        $created = $this->faker->dateTimeBetween('2020-01-01', '2021-01-01')
+        $created = $this->faker->dateTimeBetween('2020-01-01', '2022-11-01')
             ->format('Y/m/d');
         $updated = $created;
 

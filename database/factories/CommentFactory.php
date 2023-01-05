@@ -20,7 +20,7 @@ class CommentFactory extends Factory {
 
         $first_user = User::inRandomOrder()->first();
 
-        $created = $this->faker->dateTimeBetween('2021-01-02', now())
+        $created = $this->faker->dateTimeBetween('2022-11-01', now())
             ->format('Y/m/d');
         $updated = $created;
 
