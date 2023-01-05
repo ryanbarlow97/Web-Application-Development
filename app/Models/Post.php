@@ -23,7 +23,7 @@ class Post extends Model {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    
+    //ONE TO ONE
     public function image() {
         return $this->hasOne(Image::class);
     }

@@ -11,6 +11,7 @@ class Image extends Model
             'path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ];
 
+    //ONE TO ONE
     public function post() {
         return $this->belongsTo(Post::class);
     }
