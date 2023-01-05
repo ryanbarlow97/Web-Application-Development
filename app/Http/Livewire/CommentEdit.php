@@ -16,7 +16,7 @@ class CommentEdit extends Component
 
     // validation rules
     protected $rules = [
-        'newContent' => 'required|string|max:200'
+        'newContent' => 'required|string'
     ];
 
     /**

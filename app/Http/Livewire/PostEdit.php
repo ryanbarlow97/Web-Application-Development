@@ -16,7 +16,7 @@ class PostEdit extends Component
 
     // validation rules
     protected $rules = [
-        'newContent' => 'required|string|max:255'
+        'newContent' => 'required|string'
     ];
 
     /**
