@@ -26,6 +26,9 @@ class ShowDirectMessages extends Component
 
     public function sendMessage()
     {
+        $validatedData = $this->validate([
+            'content' => 'required',
+        ]);
         $conversation = Conversation::find($this->selectedConversation->id);
 
         Message::create([
