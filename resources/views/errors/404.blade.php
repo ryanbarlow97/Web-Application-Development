@@ -11,7 +11,7 @@
           <h1 class="text-2xl font-bold text-red-600">Oops!</h1>
           <h2 class="text-xl font-semibold text-gray-700">404 Not Found</h2>
           <div class="text-gray-700 text-sm mt-4">
-            Sorry, an error has occured, Requested page not found!
+            Sorry, an error has occured, Requested page not found! It may have been deleted.
           </div>
           <div class="mt-4 btn btn-primary btn-lg">
             <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
